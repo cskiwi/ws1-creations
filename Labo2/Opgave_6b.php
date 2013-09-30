@@ -15,16 +15,21 @@
 <?php
 
 // Name completed
-echo '<p>You\'ve send your form with the follwoing details attached:</p>';
-if ($_GET['name']){
+echo '<p>You\'ve send your form with the following details attached:</p>';
+if (isset($_GET['name'])){
     foreach ($_GET as $key => $value) {
         if ($key == "name")
             echo 'Name: ' . htmlentities($value). '<br />';
 
-        if (strpos($key, 'Product') !== FALSE)
-            echo $key . ': ' . htmlentities($value). '<br />';
+        // check if gets has products
+        if (strpos($key, 'Product') !== false){
+            // get product nr
+            $prodNr = substr($key, 7);
+            // check if is numeric
+            if(is_numeric($prodNr))
+                echo 'Product '. $prodNr .': ' . htmlentities($value). '<br />';
+        }
     }
-
 }
 
 // Name not completed

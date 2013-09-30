@@ -22,8 +22,13 @@ if (isset($_POST['btnAddProduct']))
     $amount++;
 
 else if(isset($_POST['btnSubmit'])){
-    // check
     $allOk = true;
+
+    // name
+    if (trim($name) === '') {
+        $msgName = 'Please enter your name';
+        $allOk = false;
+    }
 
     if ($allOk === true) {
         $gotoLocation = 'Location: Opgave_6b.php?name='. urlencode($name);
