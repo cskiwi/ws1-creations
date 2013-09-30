@@ -4,11 +4,11 @@
  * Date: 30/09/13
  */
 
-$name = isset($_GET['name']) ? (string) $_GET['name'] : '';
-$email = isset($_GET['email']) ? (string) $_GET['email'] : '';
-$beroep = isset($_GET['beroep']) ? (int) $_GET['beroep'] : 0;
-$via = isset($_GET['via']) ? (array) $_GET['via'] : array();
-$remark = isset($_GET['remark']) ? (string) $_GET['remark'] : '';
+$name = isset($_POST['name']) ? (string) $_POST['name'] : '';
+$email = isset($_POST['email']) ? (string) $_POST['email'] : '';
+$beroep = isset($_POST['beroep']) ? (int) $_POST['beroep'] : 0;
+$via = isset($_POST['via']) ? (array) $_POST['via'] : array();
+$remark = isset($_POST['remark']) ? (string) $_POST['remark'] : '';
 
 
 
@@ -17,11 +17,11 @@ $remark = isset($_GET['remark']) ? (string) $_GET['remark'] : '';
 <html>
 <head>
     <title>
-        Opgave 3
+        Opgave 4
     </title>
 </head>
 <body>
-<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
+<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
     <h2>Waar heeft u ons bedrijf leren kennen?</h2>
     <dl>
         <dt><label for="name">Name</label> </dt>
