@@ -12,23 +12,22 @@ $sum = $rand1 + $rand2;
 <html>
 <head>
     <title>
-        Opgave 1
+        Opgave 2
     </title>
 </head>
 <body>
 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="get">
 
-    <fieldset>
-        <dl>
-            <dt><label for="first">First textfield</label> </dt>
-            <dd><input type="text" name="first" id="first"value="<?php echo htmlentities($rand1) ?>"></dd>
-            <dt><label for="second">Second textfield</label></dt>
-            <dd><input type="text" name="second" id="second" value="<?php echo htmlentities($rand2) ?>"></dd>
-            <dt><label for="third">Sum</label></dt>
-            <dd><input type="text" id="third" value="<?php echo (isset($_GET['first']) && isset($_GET['second']))? htmlentities($sum) : ''; ?>" <?php echo (isset($_GET['first']) && isset($_GET['second']))?: 'disabled'; ?>></dd>
-            <dt><input type="submit" value="Send"></dt>
-        </dl>
-    </fieldset>
+    <dl>
+        <dt><label for="first">First textfield</label> </dt>
+        <dd><input type="text" name="first" id="first"value="<?php echo htmlentities($rand1) ?>"></dd>
+        <dt><label for="second">Second textfield</label></dt>
+        <dd><input type="text" name="second" id="second" value="<?php echo htmlentities($rand2) ?>"></dd>
+        <dt><label for="third">Sum</label></dt>
+        <dd><input type="text" id="third" value="<?php echo (isset($_GET['first']) && isset($_GET['second']))? htmlentities($sum) : ''; ?>" <?php echo (isset($_GET['first']) && isset($_GET['second']))?: 'disabled'; ?>></dd>
+        <dt><input type="submit" value="Send"></dt>
+    </dl>
+
 </form>
 
 </body>
