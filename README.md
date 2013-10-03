@@ -1,5 +1,4 @@
 ws1-sws-creations
 =================
 
-Webscripten creations
-online backup :)
+Webscripten online backup just in case :)
