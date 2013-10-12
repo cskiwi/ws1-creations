@@ -2,10 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4c12a1da-6dff-4010-b4f2-e54f275032b5" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/opgave.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/images/1.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/images/2.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/images/3.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/images/4.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/images/5.jpg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/avi.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/bmp.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/default.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/dll.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/doc.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/folder.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/gif.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/html.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/jpg.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/js.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/mp3.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/pdf.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/php.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/png.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/ppt.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/swf.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/txt.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/up.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/vsd.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/xls.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/xml.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/icons/zip.gif" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Labo3/images/captions.txt" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
     </list>
     <ignored path=".idea/" />
+    <ignored path=".idea/workspace.xml" />
     <file path="/Opgave1.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380462543994" ignored="false" />
     <file path="/Opgave2.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380464475701" ignored="false" />
     <file path="/Opgave3.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380465117696" ignored="false" />
@@ -13,7 +41,7 @@
     <file path="/Opgave5.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380466325555" ignored="false" />
     <file path="$USER_HOME$/PhpstormProjects/Webscripten/ws1 - sws - labo01 - modeloplossing/opgave_6.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380466330469" ignored="false" />
     <file path="/Opgave6.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380467450742" ignored="false" />
-    <file path="/Dummy.txt" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1381569840667" ignored="false" />
+    <file path="/Dummy.txt" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1381570239192" ignored="false" />
     <file path="/Opgave_1.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380539392589" ignored="false" />
     <file path="/Opgave_2.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380540341321" ignored="false" />
     <file path="/Opgave_3.php" changelist="4c12a1da-6dff-4010-b4f2-e54f275032b5" time="1380541754263" ignored="false" />
@@ -62,7 +90,7 @@
       <file leaf-file-name="Opgave_6.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Labo2/Opgave_6.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="6" selection-start="972" selection-end="972" vertical-scroll-proportion="-7.8461537">
+            <state line="43" column="6" selection-start="972" selection-end="972" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -71,7 +99,7 @@
       <file leaf-file-name="Opgave_6b.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Labo2/Opgave_6b.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="33" column="0" selection-start="709" selection-end="709" vertical-scroll-proportion="-19.615385">
+            <state line="33" column="0" selection-start="709" selection-end="709" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -80,7 +108,7 @@
       <file leaf-file-name="opgave.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Labo3/opgave.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="102" column="8" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.3320965">
+            <state line="125" column="6" selection-start="3378" selection-end="3378" vertical-scroll-proportion="0.75695735">
               <folding />
             </state>
           </provider>
@@ -94,6 +122,11 @@
     </FindUsagesManager>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Glenn Latomme&lt;glenn.latomme@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitLogSettings">
@@ -170,7 +203,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -219,18 +251,19 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="recentsLimit" value="5" />
     <property name="options.lastSelected" value="project.propVCSSupport.Ignored.Files" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
+    <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea/workspace.xml" />
     <property name="FullScreen" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -329,19 +362,23 @@
       <created>1380551442747</created>
       <updated>1380551442747</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="adding labo 3&#10;">
+      <created>1381569884923</created>
+      <updated>1381569884923</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32739422" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33295965" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32739422" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3311111" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25773746" sideWeight="0.6726058" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26040554" sideWeight="0.6726058" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39910313" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -398,7 +435,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding labo 3&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Images for labo3" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -417,6 +454,7 @@
     <MESSAGE value="Opgave 3 added" />
     <MESSAGE value="Done" />
     <MESSAGE value="adding labo 3&#10;" />
+    <MESSAGE value="Images for labo3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -496,21 +534,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Labo2/Opgave_6.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="6" selection-start="972" selection-end="972" vertical-scroll-proportion="-7.8461537">
+        <state line="43" column="6" selection-start="972" selection-end="972" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Labo2/Opgave_6b.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="709" selection-end="709" vertical-scroll-proportion="-19.615385">
+        <state line="33" column="0" selection-start="709" selection-end="709" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Labo3/images/1.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Labo3/opgave.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="102" column="8" selection-start="3018" selection-end="3018" vertical-scroll-proportion="0.3320965">
+        <state line="125" column="6" selection-start="3378" selection-end="3378" vertical-scroll-proportion="0.75695735">
           <folding />
         </state>
       </provider>
