@@ -52,6 +52,7 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
             $stmt->bindValue(':priority', $priority, PDO::PARAM_STR);
             $stmt->bindValue(':added_on', (new DateTime())->format('Y-m-d'), PDO::PARAM_STR);
             $stmt->execute();
+
             header('location:'.$_SERVER['PHP_SELF']);
         } catch (Exception $e) {
             showDbError('fetch', $e);
@@ -158,22 +159,21 @@ try {
             <h2>Your todos</h2>
 
             <div class="boxInner">
-
-                <?php
-                if ($collection != ''){
-                    foreach($collection as $item){
+                <ul>
+                    <?php
+                    if ($collection != ''){
+                        foreach($collection as $item){
                             echo'<li id="item-'.htmlentities($item['id']).'" class="item '.htmlentities($item['priority']).' clearfix">
                                 <a href="delete.php?id='.htmlentities($item['id']).'" class="delete" title="Delete/Complete this item">delete/complete</a>
                                 <a href="edit.php?id='.htmlentities($item['id']).'" class="edit" title="Edit this item">edit</a>
                                 <span>'.htmlentities($item['what']).'</span>
                             </li>';
-                    }
-                }else {
+                        }
+                    }else {
                     ?>
-                        <li class="item high clearfix">No items in DB</li>
-                    <?php
-                }
-                ?>
+                    <<li class="item high clearfix">No items in DB</li>
+                    <?php } ?>
+                </ul>
             </div>
 
         </div>
