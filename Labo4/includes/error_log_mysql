@@ -1,0 +1,4 @@
+
+2013-10-14 13:22:14 : SQLSTATE[HY000] [1049] Unknown database 'does_not_exist'
+2013-10-14 13:50:47 : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"todolist"' at line 1
+2013-10-14 13:59:14 : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'todo.odolist' doesn't exist
