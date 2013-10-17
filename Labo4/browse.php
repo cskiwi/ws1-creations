@@ -38,10 +38,8 @@ $collection = '';
 if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
 
     // check parameters
-    if ($what == '')
-        array_push($formErrors, 'No todo item was typed');
-    if (in_array($prior, $priorities))
-        array_push($formErrors, 'There was an error with the priority please try again');
+    if ($what == '')array_push($formErrors, 'No todo item was typed');
+    if (in_array($prior, $priorities))array_push($formErrors, 'There was an error with the priority please try again');
 
     // if succesfull
     if($formErrors = '') {
@@ -54,12 +52,11 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
             $stmt->execute();
 
             header('location:'.$_SERVER['PHP_SELF']);
+            exit();
         } catch (Exception $e) {
             showDbError('fetch', $e);
         }
     }
-
-    // if query succeeded: redirect to this very same page
 
 }
 
@@ -170,8 +167,8 @@ try {
                             </li>';
                         }
                     }else {
-                    ?>
-                    <<li class="item high clearfix">No items in DB</li>
+                        ?>
+                        <<li class="item high clearfix">No items in DB</li>
                     <?php } ?>
                 </ul>
             </div>

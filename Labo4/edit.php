@@ -16,7 +16,7 @@ require_once 'includes/functions.php';
  * ----------------------------------------------------------------
  */
 
-// @TODO database connectoin
+include_once 'includes/connection.php';
 
 
 /**
@@ -28,8 +28,9 @@ require_once 'includes/functions.php';
 $priorities = array('low','normal','high'); // The possible priorities of a todo
 $formErrors = array(); // The encountered form errors
 
-$id = isset($_GET['id']) ? (int) $_GET['id'] : 0; // The passed in id of the todo
+$id_get = isset($_GET['id']) ? (int) $_GET['id'] : 0; // The passed in id of the todo
 
+$id_post = isset($_POST['id']) ? (int) $_POST['id'] : 0; // The todo id that was sent in via the form
 $what = isset($_POST['what']) ? $_POST['what'] : ''; // The todo that was sent in via the form
 $priority = isset($_POST['priority']) ? $_POST['priority'] : 'low'; // The priority that was sent in via the form
 
@@ -40,23 +41,37 @@ $priority = isset($_POST['priority']) ? $_POST['priority'] : 'low'; // The prior
  */
 
 if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'edit')) {
-
     // check if item exists (use the id from the $_POST array!)
-
-    // @TODO (if error, redirect to browse.php)
-
-    // check parameters
-
-    // @TODO (if an error was encountered, add it to the $formErrors array)
-
-    // if no errors: updates values in the database
-
-    // @TODO update values in DB
-
-    // if query succeeded: redirect to browse.php
-
-    // @TODO redirect to browse.php
-
+    if ($id_post == 0)
+        array_push($formErrors, 'no or wrong id was given!');
+    else {
+        try {
+            // check if ID excists
+            $stmt = $db->prepare('SELECT * FROM todolist WHERE id = :ID;');
+            $stmt->bindValue(':ID', $id_post, PDO::PARAM_INT);
+            $stmt->execute();
+            $item = $stmt->fetch();
+            if ($item != null) {
+                var_dump($what);
+                if ($what == '') array_push($formErrors,'fill in the todo');
+                if (!in_array($priority, $priorities))array_push($formErrors, 'There was an error with the priority please try again');
+                if ($formErrors != '') {
+                    $stmt = $db->prepare('UPDATE todolist SET what=:what,priority=:priority WHERE id = :ID;');
+                    $stmt->bindValue(':ID', $id_post, PDO::PARAM_INT);
+                    $stmt->bindValue(':what', $what, PDO::PARAM_STR);
+                    $stmt->bindValue(':priority', $priority, PDO::PARAM_STR);
+                    $stmt->execute();
+                    // header('location:browse.php');
+                    exit();
+                }
+            } else {
+                header('location:browse.php');
+                exit();
+            }
+        } catch (Exception $e) {
+            showDbError('fetch', $e);
+        }
+    }
 }
 
 
@@ -65,13 +80,27 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'edit')) {
  * ----------------------------------------------------------------
  */
 
-// @TODO Check if the passed in id (in $_GET) exists as a todoitem (if it fails, redirect to browse.php)
+// header('location:'.$_SERVER['PHP_SELF']);
+if ($id_get == 0)
+    array_push($formErrors, 'no or wrong id was givven');
+else {
+    try {
+        // check if ID excists
+        $stmt = $db->prepare('SELECT * FROM todolist WHERE id = :ID;');
+        $stmt->bindValue(':ID', $id_get, PDO::PARAM_INT);
+        $stmt->execute();
+        $item = $stmt->fetch();
+        if ($item != null) {
+            $what = $item['what'];
+            $priority = $item['priority'];
+        } else {
+            header('location:browse.php');
+        }
 
-// @TODO Get the item from the database
-
-// @TODO If the form has not been sent, overwrite the $what and $priority parameters
-
-
+    } catch (Exception $e) {
+        showDbError('fetch', $e);
+    }
+}
 
 ?><!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="oldie ie6" lang="en"><![endif]-->
@@ -111,31 +140,26 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'edit')) {
         <div class="box" id="boxAddTodo">
 
             <h2>Edit existing todo</h2>
-
-            <?php
-            // @TODO Persist all values below
-            ?>
-
             <div class="boxInner">
                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <fieldset>
                         <dl class="clearfix columns">
-                            <dd class="column column-46"><input type="text" name="what" id="what" value="" /></dd>
+                            <dd class="column column-46"><input type="text" name="what" id="what" value="<?php echo htmlentities($what); ?>" /></dd>
                             <dd class="column column-16" id="col-priority">
                                 <select name="priority" id="priority">
                                     <?php
                                     foreach ($priorities as $prior){
-                                        echo ('<option value="'.$prior.'" ');
-                                        if($priority == $prior)
-                                            echo 'selected';
-                                        echo (' >'.$prior.'</option>');
+                                    echo ('<option value="'.$prior.'" ');
+                                    if($priority == $prior)
+                                    echo 'selected';
+                                    echo (' >'.$prior.'</option>');
                                     }
                                     ?>
                                 </select>
                             </dd>
                             <dd class="column column-16" id="col-submit">
                                 <label for="btnSubmit"><input type="submit" id="btnSubmit" name="btnSubmit" value="Edit" /></label>
-                                <input type="hidden" name="id" value="" />
+                                <input type="hidden" name="id" value="<?php echo htmlentities($id_get); ?>" />
                                 <input type="hidden" name="moduleAction" id="moduleAction" value="edit" />
                             </dd>
                         </dl>
@@ -147,8 +171,12 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'edit')) {
         </div>
 
         <?php
-        // @TODO if any errors are set, show them inside <div class="box" id="boxError"><ul class="errors">...</ul></div>
+        if ($formErrors != '')
+        foreach($formErrors as $error)
+        echo (' <div class="box" id="boxError"><ul class="errors">'.$error.'</ul></div>');
+
         ?>
+
     </section>
 
     <!-- footer -->
