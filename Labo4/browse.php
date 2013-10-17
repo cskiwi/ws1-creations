@@ -39,10 +39,10 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
 
     // check parameters
     if ($what == '')array_push($formErrors, 'No todo item was typed');
-    if (in_array($prior, $priorities))array_push($formErrors, 'There was an error with the priority please try again');
+    if (!in_array($priority, $priorities))array_push($formErrors, 'There was an error with the priority please try again');
 
     // if succesfull
-    if($formErrors = '') {
+    if(empty($formErrors)) {
         try {
             // insert into database
             $stmt = $db->prepare('INSERT INTO todolist (what, priority, added_on) VALUES (:what, :priority, :added_on);');
@@ -73,10 +73,6 @@ try {
         $collection = $stmt->fetchAll(PDO::FETCH_ASSOC);
     else
         showDbError('fetch', 'data could not be fetched');
-
-    // var_dump($collection);
-
-
 } catch(Exception $e) {
     showDbError('db', $e->getMessage());
 }

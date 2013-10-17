@@ -29,7 +29,6 @@ $priorities = array('low','normal','high'); // The possible priorities of a todo
 $formErrors = array(); // The encountered form errors
 
 $id_get = isset($_GET['id']) ? (int) $_GET['id'] : 0; // The passed in id of the todo
-
 $id_post = isset($_POST['id']) ? (int) $_POST['id'] : 0; // The todo id that was sent in via the form
 $what = isset($_POST['what']) ? $_POST['what'] : ''; // The todo that was sent in via the form
 $priority = isset($_POST['priority']) ? $_POST['priority'] : 'low'; // The priority that was sent in via the form
@@ -52,17 +51,20 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'edit')) {
             $stmt->execute();
             $item = $stmt->fetch();
             if ($item != null) {
-                var_dump($what);
-                if ($what == '') array_push($formErrors,'fill in the todo');
+                if (trim($what) === '') array_push($formErrors,'fill in the todo');
                 if (!in_array($priority, $priorities))array_push($formErrors, 'There was an error with the priority please try again');
-                if ($formErrors != '') {
+                if (empty($formErrors)) {
+                    echo 'updating';
                     $stmt = $db->prepare('UPDATE todolist SET what=:what,priority=:priority WHERE id = :ID;');
                     $stmt->bindValue(':ID', $id_post, PDO::PARAM_INT);
                     $stmt->bindValue(':what', $what, PDO::PARAM_STR);
                     $stmt->bindValue(':priority', $priority, PDO::PARAM_STR);
                     $stmt->execute();
-                    // header('location:browse.php');
+                    header('location:browse.php');
                     exit();
+                } else {
+                    // error in post, pass the id to the form for re-getting original data
+                    $id_get = $id_post;
                 }
             } else {
                 header('location:browse.php');
