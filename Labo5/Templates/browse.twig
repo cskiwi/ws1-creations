@@ -1,0 +1,67 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'Browse Items' %}
+
+{% block pageContent %}
+    {# Add new todo #}
+    <div class="box" id="boxAddTodo">
+        <h2>Add new todo</h2>
+
+        <div class="boxInner">
+            <form action="{{ directTo }}" method="post">
+                <fieldset>
+                    <dl class="clearfix columns">
+                        <dd class="column column-46"><input type="text" name="what" id="what" value="" /></dd>
+                        <dd class="column column-16" id="col-priority">
+                            <select name="priority" id="priority">
+                                {% for prior in priorities %}
+                                    <option value="{{ prior }}"
+                                            {% if prior == item.priority %}
+                                                selected
+                                            {% endif %}
+                                            >{{ prior }}</option>
+                                {% endfor %}
+                            </select>
+                        </dd>
+                        <dd class="column column-16" id="col-submit">
+                            <label for="btnSubmit"><input type="submit" id="btnSubmit" name="btnSubmit" value="Add" /></label>
+                            <input type="hidden" name="moduleAction" id="moduleAction" value="add" />
+                        </dd>
+                    </dl>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+
+    {# Listing todos #}
+    <h2>Your todos</h2>
+    <div class="boxInner">
+        <ul>
+            {% if items %}
+                {% for item in items %}
+
+                    <li id="{{ item.id }}" class="item {{ item.priority }} clearfix">
+                        <a href="delete.php?id={{ item.id }}" class="delete" title="Delete/Complete this item">delete/complete</a>
+                        <a href="edit.php?id={{ item.id }}" class="edit" title="Edit this item">edit</a>
+                        <span>{{ item.what }}</span>
+                    </li>
+                {% endfor %}
+
+            {% else %}
+                <li>No items to show</li>
+
+            {% endif %}
+        </ul>
+    </div>
+
+    {# Error handeling#}
+    {% if errors  %}
+        <div class="box" id="boxError">
+            <ul class="errors">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{% endblock %}
