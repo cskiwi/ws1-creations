@@ -9,7 +9,7 @@
 define ('DB_HOST', 'localhost');
 
 // Database Server Username
-define ('DB_USER', 'schoolUser');
+define ('DB_USER', 'root');
 
 // Database Server Password
 define ('DB_PASS', 'Azerty123');
