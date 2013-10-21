@@ -100,7 +100,6 @@ $item = $stmt->fetch(PDO::FETCH_ASSOC);
 
 $tpl = $twig->loadTemplate('delete.twig');
 echo $tpl->render(array(
-    'js' => 'js/delete.js',
     'directTo' => $_SERVER['PHP_SELF'],
     'item' => $item,
     'errors' => $formErrors

@@ -120,7 +120,6 @@ if (!isset($_POST['moduleAction'])) {
 
 $tpl = $twig->loadTemplate('edit.twig');
 echo $tpl->render(array(
-    'js' => 'js/edit.js',
     'priorities' => $priorities,
     'directTo' => $_SERVER['PHP_SELF'],
     'item' => $item,

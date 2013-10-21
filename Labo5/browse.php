@@ -94,7 +94,6 @@ $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $tpl = $twig->loadTemplate('browse.twig');
 echo $tpl->render(array(
-    'js' => 'js/browse.js',
     'priorities' => $priorities,
     'directTo' =>$_SERVER['PHP_SELF'],
     'items' => $items,

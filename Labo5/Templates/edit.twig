@@ -1,6 +1,9 @@
 {% extends 'layout.twig' %}
 
 {% set pageTitle = 'Edit Item' %}
+    {% block javascript %}
+        <script src="js/edit.js"></script>
+    {% endblock %}
 
 {% block pageContent %}
     <div class="box" id="boxAddTodo">

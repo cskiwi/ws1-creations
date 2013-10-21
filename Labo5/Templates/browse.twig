@@ -2,6 +2,13 @@
 
 {% set pageTitle = 'Browse Items' %}
 
+
+    {% block javascript %}
+        <script src="js/browse.js"></script>
+    {% endblock %}
+
+
+
 {% block pageContent %}
     {# Add new todo #}
     <div class="box" id="boxAddTodo">
@@ -34,6 +41,7 @@
     </div>
 
     {# Listing todos #}
+
     <h2>Your todos</h2>
     <div class="boxInner">
         <ul>
