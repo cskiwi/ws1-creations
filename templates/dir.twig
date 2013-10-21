@@ -1,0 +1,28 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'Directory listing' %}
+
+{% block pageStyle %}
+    {{ parent() }}
+
+    ul {list-style: none;}
+{% endblock %}
+
+{% block pageContent %}
+    <ul>
+        <a href="index.php">Home</a>
+        <hr / >
+        {% if  dirs%}
+            {% for dir in dirs %}
+                <li>
+                    <a href="?page={{ dir }}"> {{ dir }}</a>
+                </li>
+            {% endfor %}
+        {% endif %}
+        {% for file in files %}
+            <li>
+                <a href="{{ file.location }}"> {{ file.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
