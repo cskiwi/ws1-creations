@@ -131,7 +131,7 @@ echo $tpl->render(array(
     'item' => $item,
     'priorities' => $priorities,
     'priority' => $priority,
-    'formErrors' => $formErrors
+    'formErrors' => $formErrors,
 ));
 
 
