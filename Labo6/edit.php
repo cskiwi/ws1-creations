@@ -77,8 +77,8 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'edit')) {
     if (sizeof($formErrors) == 0) {
 
         // build and execute statement
-        $stmt = $db->prepare('UPDATE todolist SET what = ?, priority = ?, added_on = ? WHERE id = ?');
-        $stmt->execute(array($what, $priority, (new DateTime())->format('Y-m-d H:i:s'), $id));
+        $stmt = $db->prepare('UPDATE todolist SET what = ?, priority = ?, added_on = ? WHERE id = ? AND userID = ?');
+        $stmt->execute(array($what, $priority, (new DateTime())->format('Y-m-d H:i:s'), $id, $_SESSION['userID']));
 
         // the query succeeded, redirect to this very same page
         if ($stmt->rowCount() != 0) {
