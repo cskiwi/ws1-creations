@@ -105,7 +105,8 @@ echo $tpl->render(array(
     'priorities' => $priorities,
     'priority' => $priority,
     'items' => $items,
-    'formErrors' => $formErrors
+    'formErrors' => $formErrors,
+    'login' => ($_SESSION['userID'])?true:false
 ));
 
 

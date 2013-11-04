@@ -106,7 +106,8 @@ $tpl = $twig->loadTemplate('delete.twig');
 echo $tpl->render(array(
     'action' => $_SERVER['PHP_SELF'] . '?id=' . htmlentities(urlencode($id)),
     'item' => $item,
-    'formErrors' => $formErrors
+    'formErrors' => $formErrors,
+    'login' => ($_SESSION['userID'])?true:false
 ));
 
 ?>

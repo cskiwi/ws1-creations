@@ -51,6 +51,8 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'login')) {
         array_push($formErrors, 'No password is defined');
     }
 
+    echo 'test';
+
     // form is correct: fetch username out of database
     if (sizeof($formErrors) == 0) {
         $stmt = $db->prepare('SELECT * FROM users WHERE username = ? LIMIT 1');
@@ -75,7 +77,6 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'login')) {
     }
 }
 
-echo $username;
 /**
  * Load and render template
  * ----------------------------------------------------------------
