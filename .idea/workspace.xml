@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e3025c-d896-4ab6-95eb-365857931b8e" name="Default" comment="Update" />
+    <list default="true" id="c9e3025c-d896-4ab6-95eb-365857931b8e" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
     <ignored mask="*.zip" />
@@ -46,7 +48,7 @@
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="93" selection-end="93" vertical-scroll-proportion="0.17200674" vertical-offset="0" max-vertical-offset="593">
+            <state line="5" column="16" selection-start="92" selection-end="92" vertical-scroll-proportion="0.14333895" vertical-offset="0" max-vertical-offset="593">
               <folding />
             </state>
           </provider>
@@ -110,8 +112,8 @@
         <option value="$PROJECT_DIR$/Labo4/includes/config.php" />
         <option value="$PROJECT_DIR$/Labo4/edit.php" />
         <option value="$PROJECT_DIR$/Labo4/browse.php" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -365,7 +367,11 @@
       <created>1385119556549</created>
       <updated>1385119556549</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Update">
+      <created>1385119869305</created>
+      <updated>1385119869305</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -523,7 +529,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="93" selection-end="93" vertical-scroll-proportion="0.17200674" vertical-offset="0" max-vertical-offset="593">
+        <state line="5" column="16" selection-start="92" selection-end="92" vertical-scroll-proportion="0.14333895" vertical-offset="0" max-vertical-offset="593">
           <folding />
         </state>
       </provider>
