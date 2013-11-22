@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9e3025c-d896-4ab6-95eb-365857931b8e" name="Default" comment="Update">
-      <change type="DELETED" beforePath="C:\wamp\www\ws1-creations\cache\75\85\3ddfd5d426ee7f99a442a6af9c806a2dfc55951b5753b54d3acc223e6e4d.php" afterPath="" />
-      <change type="DELETED" beforePath="C:\wamp\www\ws1-creations\cache\90\10\ff917f80144b633c1c3a637abd9e1b6398709ede158b762290eda265fb4d.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path=".idea/workspace.xml" />
@@ -48,10 +46,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="4" selection-start="97" selection-end="97" vertical-scroll-proportion="0.17200674" vertical-offset="0" max-vertical-offset="593">
+            <state line="6" column="0" selection-start="93" selection-end="93" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="11" selection-start="70" selection-end="70" vertical-scroll-proportion="0.08600337" vertical-offset="0" max-vertical-offset="593">
               <folding />
             </state>
           </provider>
@@ -116,6 +123,7 @@
         <option value="$PROJECT_DIR$/Labo4/edit.php" />
         <option value="$PROJECT_DIR$/Labo4/browse.php" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -389,7 +397,11 @@
       <created>1385118877261</created>
       <updated>1385118877261</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update">
+      <created>1385119161412</created>
+      <updated>1385119161412</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -547,7 +559,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="4" selection-start="97" selection-end="97" vertical-scroll-proportion="0.17200674" vertical-offset="0" max-vertical-offset="593">
+        <state line="6" column="0" selection-start="93" selection-end="93" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="11" selection-start="70" selection-end="70" vertical-scroll-proportion="0.08600337" vertical-offset="0" max-vertical-offset="593">
           <folding />
         </state>
       </provider>
