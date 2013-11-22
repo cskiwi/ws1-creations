@@ -13,7 +13,7 @@ $twig = new Twig_Environment($loader, array(
 
 // get folders
 $page = isset($_GET['page']) ? $_GET['page'] : '';
-$basePath = __DIR__ ; // . DIRECTORY_SEPARATOR .  'ws1-sws-creations';
+$basePath = __DIR__ ; // . DIRECTORY_SEPARATOR .  'ws1-creations';
 $dirs = array();
 $files = array();
 

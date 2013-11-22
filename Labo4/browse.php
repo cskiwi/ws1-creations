@@ -39,7 +39,7 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
 
     // check parameters
     if ($what == '')array_push($formErrors, 'No todo item was typed');
-    if (!in_array($priority, $priorities))array_push($formErrors, 'There was an error with the priority please try again');
+    if (!in_array($priority, $priorities)) array_push($formErrors, 'There was an error with the priority please try again');
 
     // if succesfull
     if(empty($formErrors)) {
