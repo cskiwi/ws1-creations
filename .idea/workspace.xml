@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9e3025c-d896-4ab6-95eb-365857931b8e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="C:\wamp\www\ws1-creations\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\ws1-creations\.idea\workspace.xml" afterPath="" />
     </list>
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
