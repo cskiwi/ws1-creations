@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c9e3025c-d896-4ab6-95eb-365857931b8e" name="Default" comment="Project update">
+    <list default="true" id="c9e3025c-d896-4ab6-95eb-365857931b8e" name="Default" comment="Update">
+      <change type="DELETED" beforePath="C:\wamp\www\ws1-creations\cache\75\85\3ddfd5d426ee7f99a442a6af9c806a2dfc55951b5753b54d3acc223e6e4d.php" afterPath="" />
+      <change type="DELETED" beforePath="C:\wamp\www\ws1-creations\cache\90\10\ff917f80144b633c1c3a637abd9e1b6398709ede158b762290eda265fb4d.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
-    <ignored path="ws1-sws-creations.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/" />
+    <ignored mask="*.zip" />
+    <ignored mask="*.rar" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,23 +48,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ff917f80144b633c1c3a637abd9e1b6398709ede158b762290eda265fb4d.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cache/90/10/ff917f80144b633c1c3a637abd9e1b6398709ede158b762290eda265fb4d.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="42" column="47" selection-start="1111" selection-end="1111" vertical-scroll-proportion="-4.9615383" vertical-offset="585" max-vertical-offset="2006">
-              <folding>
-                <marker date="1382546939991" expanded="true" signature="1183:1247" placeholder="..." />
-                <marker date="1382546939991" expanded="true" signature="1702:1739" placeholder="..." />
-                <marker date="1382546939991" expanded="true" signature="2772:2799" placeholder="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="93" selection-end="93" vertical-scroll-proportion="0.17200674" vertical-offset="0" max-vertical-offset="593">
+            <state line="6" column="4" selection-start="97" selection-end="97" vertical-scroll-proportion="0.17200674" vertical-offset="0" max-vertical-offset="593">
               <folding />
             </state>
           </provider>
@@ -395,7 +385,11 @@
       <created>1385118526714</created>
       <updated>1385118526714</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Update">
+      <created>1385118877261</created>
+      <updated>1385118877261</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -455,7 +449,8 @@
     <MESSAGE value="Edit + update browse" />
     <MESSAGE value="Bugfixes &amp; project is done" />
     <MESSAGE value="Project update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project update" />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -550,20 +545,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cache/90/10/ff917f80144b633c1c3a637abd9e1b6398709ede158b762290eda265fb4d.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="47" selection-start="1111" selection-end="1111" vertical-scroll-proportion="-4.9615383" vertical-offset="585" max-vertical-offset="2006">
-          <folding>
-            <marker date="1382546939991" expanded="true" signature="1183:1247" placeholder="..." />
-            <marker date="1382546939991" expanded="true" signature="1702:1739" placeholder="..." />
-            <marker date="1382546939991" expanded="true" signature="2772:2799" placeholder="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="93" selection-end="93" vertical-scroll-proportion="0.17200674" vertical-offset="0" max-vertical-offset="593">
+        <state line="6" column="4" selection-start="97" selection-end="97" vertical-scroll-proportion="0.17200674" vertical-offset="0" max-vertical-offset="593">
           <folding />
         </state>
       </provider>
