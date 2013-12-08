@@ -22,20 +22,10 @@ window.addEventListener('load', function() {
             cells[j].colnr = j;
             cells[j].restoreVal = cells[j].innerHTML;
             cells[j].addEventListener('blur', function(event){
-                // commitValue(event.target);
+                commitValue(event.target);
             });
         }
     }
-
-    table.addEventListener('click', function(event){
-        /*console.log('clicked: ' + event.target.rownr + ', ' + event.target.colnr + ', ' + event.target.restoreVal);
-        var blockrow, blockcol, rownr = event.target.rownr+1, colnr = event.target.colnr+1;
-        while(rownr%3 != 0) rownr++;
-        while(colnr%3 != 0) colnr++;
-        blockrow = rownr/3;
-        blockcol = colnr/3;
-        console.log('' + blockrow + ' x ' + blockcol);*/
-    });
 
     table.addEventListener('keydown', function(event){
         switch (event.keyCode){
@@ -49,12 +39,11 @@ window.addEventListener('load', function() {
                 event.target.blur();
                 break;
         }
-        // console.log(event.keyCode);
     });
 });
 
 function commitValue(cell) {
-    // check if valid number else return
+    // check if valid number else restore and return
     if (isNaN(cell.innerHTML)){
         cell.innerHTML = cell.restoreVal
         return;
@@ -64,19 +53,20 @@ function commitValue(cell) {
         return;
     }
 
-    cell.restoreVal = cell.innerHTML;
+    cell.restoreVal = cell.innerHTML; // save restore value
+    cell.className = ''; // reset valid state
 
-    // check if valid
-    cell.className = '';
     // determing block
     var blockrow, blockcol, rownr = cell.rownr+1, colnr = cell.colnr+1;
     while(rownr%3 != 0) rownr++;
     while(colnr%3 != 0) colnr++;
-    blockrow = rownr/3 -1;
-    blockcol = colnr/3 -1;
-    console.log('' + blockrow + ' x ' + blockcol);
+    blockrow = rownr/3;
+    blockcol = colnr/3;
 
+    // output number + block
+    console.log('' + blockrow + '(' + (cell.rownr+1) + ')' + ' x ' + blockcol + '(' + (cell.colnr+1) + ')');
 
+    // check if valid
     for (var i = 0; i < rows.length; i++){
         var cells = rows[i].getElementsByTagName('td');
         for (var j = 0; j < cells.length; j++){
@@ -92,13 +82,10 @@ function commitValue(cell) {
                     cell.className = 'invalid';
                 }
             }
-            console.log('' + cells[j].rownr + ' , ' + cells[j].colnr);
-            if (cells[j].rownr == 7 && cells[j].colnr == 2)
-                console.log('test');
 
             // check 3x3
-            if(cells[j].rownr > 3*blockrow && cells[j].rownr < 3*blockrow +3){
-                if(cells[j].colnr > 3*blockcol && cells[j].colnr < 3*blockcol +3){
+            if(cells[j].rownr >= 2*blockrow && cells[j].rownr < 2*blockrow +3){
+                if(cells[j].colnr >= 2*blockcol && cells[j].colnr < 2*blockcol +3){
                     if(cells[j].innerHTML == cell.innerHTML && cells[j] != cell && cell.innerHTML != ''){
                         cell.className = 'invalid';
                     }
@@ -117,6 +104,7 @@ function commitValue(cell) {
             countError++;
     }
 
+    // check done
     if(countRemaining == 0 && countError == 0)
         document.getElementById('summary').innerHTML = 'Gefiliciteerd!';
 
