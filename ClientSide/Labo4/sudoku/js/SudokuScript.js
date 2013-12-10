@@ -49,17 +49,18 @@ function commitValue(cell) {
     blockcol = colnr/3-1;
 
     // output number + block
-    console.log('' + cell.data('rownr') + '(' + (blockrow) + ')' + ' x ' + cell.data('colnr') + '(' + (blockcol) + ')');
+    // console.log('' + cell.data('rownr') + '(' + (blockrow) + ')' + ' x ' + cell.data('colnr') + '(' + (blockcol) + ')');
 
     // check if valid
     for (var i = 0; i < $('#myTable tr').length; i++){
         var cells = $('#myTable tr:eq('+i+') td')
         for (var j = 0; j < cells.length; j++){
-            if (!(i == cell.data('rownr') && j == cell.data('colnr'))){
 
+            // if not own cell or empty
+            if (!(i == cell.data('rownr') && j == cell.data('colnr')) && cell.text() != ''){
                 // Check row
                 if(cells.eq(j).data('rownr') == cell.data('rownr')){
-                    if(cells.eq(j).text() == cell.text() && cell.text() != ''){
+                    if(cells.eq(j).text() == cell.text()){
                         cell.addClass('invalid');
                         console.log('invalid row with: ' + (cells.eq(j).data('rownr')) + ' x ' + (cells.eq(j).data('colnr') ));
                     }
@@ -71,7 +72,7 @@ function commitValue(cell) {
 
                 // check col
                 if(cells.eq(j).data('colnr') == cell.data('colnr')){
-                    if(cells.eq(j).text() == cell.text()  && cell.text() != ''){
+                    if(cells.eq(j).text() == cell.text()){
                         cell.addClass('invalid');
                         console.log('invalid col with: ' + (cells.eq(j).data('rownr')) + ' x ' + (cells.eq(j).data('colnr')));
                     }
@@ -83,7 +84,7 @@ function commitValue(cell) {
                 // check 3x3
                 if(cells.eq(j).data('rownr') >= 3*blockrow && cells.eq(j).data('rownr') < 3*blockrow +3){
                     if(cells.eq(j).data('colnr') >= 3*blockcol && cells.eq(j).data('colnr') < 3*blockcol +3){
-                        if(cells.eq(j).text() == cell.text() && cell.text() != ''){
+                        if(cells.eq(j).text() == cell.text()){
                             cell.addClass('invalid');
                             console.log('invalid block with: ' + (cells.eq(j).data('rownr')) + ' x ' + (cells.eq(j).data('colnr')));
                         }
