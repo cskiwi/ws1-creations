@@ -1,12 +1,12 @@
 /**
  * Created by Glenn on 12/3/13.
  */
-for (var i = 0; i < $('#myTable tr').length; i++){
-    for (var j = 0; j < $('#myTable tr:eq('+i+') td').length; j++){
-        $('#myTable tr:eq('+i+') td:eq('+j+')').data('rownr',i);
-        $('#myTable tr:eq('+i+') td:eq('+j+')').data('colnr',j);
-        $('#myTable tr:eq('+i+') td:eq('+j+')').data('restoreVal', $('#myTable tr:eq('+i+') td').eq(j).text());
-
+for (var i = 0; i < $('#myTable tr').length; i++) {
+    var cells = $('#myTable tr:eq('+ i +') td');
+    for (var j = 0; j < cells.length; j++) {
+        $('#myTable tr:eq('+ i +') td:eq('+j+')').data('rownr', i);
+        $('#myTable tr:eq('+ i +') td:eq('+j+')').data('colnr', j);
+        $('#myTable tr:eq('+ i +') td:eq('+j+')').data('restoreVal', $('#myTable tr:eq('+ i +') td').text());
     }
 }
 
@@ -55,7 +55,8 @@ function commitValue(cell) {
     for (var i = 0; i < $('#myTable tr').length; i++){
         var cells = $('#myTable tr:eq('+i+') td')
         for (var j = 0; j < cells.length; j++){
-            if (i != cell.data('rownr') && j != cell.data('colnr')){
+            if (!(i == cell.data('rownr') && j == cell.data('colnr'))){
+
                 // Check row
                 if(cells.eq(j).data('rownr') == cell.data('rownr')){
                     if(cells.eq(j).text() == cell.text() && cell.text() != ''){
