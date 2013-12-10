@@ -13,7 +13,7 @@
  * SCIPT IS NOT USED, Check other script!!!
  *
  * heb mijn eigen script gebruikt van labo 3
- * omdat ik daar de werking kende, en de block detectie zat er in
+ * omdat ik daar de werking kende, en de block detectie zat er in :)
  *
  *
  */
