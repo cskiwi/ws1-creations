@@ -1,0 +1,4 @@
+START LOG
+
+[QUERY] 2012-12-11 00:31:08 Duplicate entry '100' for key 'order'
+[CONNECT] 2013-12-16 14:22:16 Unknown database 'contacts'
