@@ -1,6 +1,8 @@
 /**
  * Created by Glenn on 12/16/13.
  */
+
+
 var numAll = 0, numFamily = 0, numFriend = 0,numColl = 0,numOther = 0;
 updateNumbers();
 
@@ -36,16 +38,18 @@ function updateNumbers(){
 
 $('article a').click(function(){
     var article = $(this).closest('article');
-    var id = article.attr('id').replace('contact_', '');
+    var contactId = article.attr('id').replace('contact_', '');
     switch ($(this).text()){
         case 'verwijderen':
             if(confirm('zeker?')){
-                $.ajax({
+                $.get( 'includes/api.php', { id : contactId, action : "delete" });
+
+                /*$.ajax({
                     url: 'includes/api.php',
                     type: 'get',
-                    // dataType: 'json',
                     data: {
-                        id: id
+                        id: id,
+                        action: "delete"
                     },
                     success: function(data, textStatus, jqXHR) {
                         console.log('success');
@@ -55,7 +59,7 @@ $('article a').click(function(){
                     error : function(jqXHR, textStatus, errorThrown) {
                         console.log('error');
                     }
-                });
+                });*/
             }
             break;
         case 'bewerken':
@@ -66,4 +70,7 @@ $('article a').click(function(){
             break;
     }
 });
-
+$(document).ready(function () {
+    $.get( "api.php", { name: "John", time: "2pm" } );
+});
+console.log('eof')
