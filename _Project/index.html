@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Webscripten 2</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link type="text/css" rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+
+<div id="map-canvas" style="width: 100%; height: 100%"></div>
+<div id="map-overlay">
+    <div id = "top-right">
+        <div id="height-map"></div>
+        <input type="text" id="save-text" />
+        <button id="save-route">Save route</button>
+        <button id="clear-route">Clear route</button>
+        <br/>
+        <select id="saved-routes">
+            <option value="-1">select route</option>
+        </select>
+        <button id="load-route">Load Route</button>
+        <div id="feedback"></div>
+
+    </div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="_lib/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCNaAQihXjwRVhv5i9afWEjm61lqgjY9Uk&sensor=true&libraries=geometry"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+<script type="text/javascript" src="_lib/globalize.min.js"></script>
+<script type="text/javascript" src="_lib/dx.chartjs.js"></script>
+</html>
