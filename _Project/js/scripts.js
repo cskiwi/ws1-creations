@@ -9,8 +9,12 @@ var elevations = [];
 var distances = [];
 var markers = [];
 var LastRouteId;
+var xhr;
 
 var feedback = $('#feedback');
+var pics = $('#pics');
+var heightmap = $("#height-map");
+var load_routes = $('#load-routes');
 
 $("#save-route").click(function(){
     var name = $('#save-text').val();
@@ -39,21 +43,24 @@ $("#save-route").click(function(){
         LastRouteId = parseInt(a[0].lastRouteID);
         feedback.text(a[1].Message + ' ' + name);
         feedback.fadeIn().delay(1000).fadeOut();
-        $('#load-routes').append(new Option(name, LastRouteId));
+        load_routes.append(new Option(name, LastRouteId));
+        getPictures();
     });
 });
 $('#clear-route').click(function(){
     clearMarkers();
+    pics.fadeOut();
 });
+
 $('#load-route').click(function(){
-    if ($('#load-routes').val() != -1) {
+    if (load_routes.val() != -1) {
         clearMarkers();
         // get ID
         $.get(
             'includes/api.php',
             {
                 request: 'route',
-                id: $('#load-routes').val()
+                id: load_routes.val()
             }
         ).done (function (result) {
             var a = JSON.parse(result);
@@ -64,9 +71,9 @@ $('#load-route').click(function(){
             for (var i = 0; i < r.markers.length; i++){
                 addMarker(r.markers[i].locX, r.markers[i].locY);
             }
+            getPictures();
             feedback.text(a[1].Message);
             feedback.fadeIn().delay(1000).fadeOut();
-            makeSearch(markers[markers.length-1]['position'].nb, markers[markers.length-1]['position'].ob);
             map.setCenter(markers[0]['position']);
         });
     } else {
@@ -79,7 +86,7 @@ $('#load-route').click(function(){
 function initialize() {
     var mapOptions = {
         zoom: 18,
-        center: new google.maps.LatLng(27.000097, 86.92128),
+        center: new google.maps.LatLng(46.727624, 9.608917),
         panControl: false,
         zoomControl: false,
         mapTypeControl: false,
@@ -89,10 +96,12 @@ function initialize() {
         mapTypeId: google.maps.MapTypeId.SATELLITE
     };
     var routeOptions = {
-        strokeColor: '#000000',
-        strokeOpacity: 1.0,
-        strokeWeight: 1
+        strokeColor: 'cadetblue',
+        strokeOpacity:0.75,
+        strokeWeight: 3
     };
+
+    xhr = new XMLHttpRequest();
     elevator = new google.maps.ElevationService();
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     route = new google.maps.Polyline(routeOptions);
@@ -101,7 +110,7 @@ function initialize() {
     google.maps.event.addListener(map, 'click', click);
 
     // chart
-    $("#height-map").dxChart({
+    heightmap.dxChart({
         dataSource: elevations,
         commonSeriesSettings: {
             argumentField: 'distancePassed'
@@ -152,15 +161,35 @@ function initialize() {
             if (routes[i]['id'] > LastRouteId){
                 LastRouteId = routes[i]['id'];
             }
-            $('#load-routes').append(new Option(routes[i]['name'],routes[i]['id']));
+            load_routes.append(new Option(routes[i]['name'],routes[i]['id']));
         }
 
     });
 
-    $(".fancybox").fancybox({
+    $('.fancybox').fancybox({
         openEffect	: 'none',
         closeEffect	: 'none'
     });
+
+    xhr.onreadystatechange = function(e) {
+        pics.text('');
+        try {
+            var data = JSON.parse(this.responseText);
+            data = data.photos.photo;
+            for (var i = 0; i < data.length; i++) {
+                var img = $('<img>');
+                var a = $('<a>');
+                img.attr('src', data[i].url_m);
+                img.addClass('box-shadow');
+                a.attr('href', data[i].url_m);
+                a.addClass('fancybox');
+
+                img.appendTo(a);
+                a.appendTo(pics);
+            }
+        } catch (e) {
+        }
+    }
 }
 
 function clearMarkers(){
@@ -170,6 +199,7 @@ function clearMarkers(){
     }
     elevations = [];
     distances = [];
+    markers = [];
     updatedChart();
 }
 function click(event) {
@@ -202,7 +232,11 @@ function updateDistance() {
 }
 
 function updatedChart(){
-    $("#height-map").dxChart('option','dataSource',elevations);
+    if (markers.length > 0)
+        heightmap.fadeIn().dxChart('option','dataSource',elevations);
+    else if (heightmap.is(":visible")){
+        heightmap.fadeOut();
+    }
 }
 
 function updateElevation() {
@@ -221,29 +255,13 @@ function updateElevation() {
         }
     });
 }
-var xhr = new XMLHttpRequest();
-var pics = $('#pics');
 
-xhr.onreadystatechange = function(e) {
-    pics.text('');
-    console.log(this.responseText);
-    var data = JSON.parse(this.responseText);
-    data = data.photos.photo;
-    for (var i = 0; i < data.length; i++) {
-        var img = $('<img>');
-        var a = $('<a>');
-        img.attr('src', data[i].url_m);
-        img.addClass('box-shadow');
-        a.attr('href', data[i].url_m);
-        a.addClass('fancybox');
 
-        img.appendTo(a);
-        a.appendTo(pics);
-    }
+function getPictures(){
+    makeSearch(markers[markers.length-1]['position'].nb, markers[markers.length-1]['position'].ob);
 }
 
 function makeSearch(x, y) {
-
     console.log("x: " + x  + ", y: " + y );
     var url = "http://api.flickr.com/services/rest/?method=flickr.photos.search" +
         "&extras=url_m&per_page=20&format=json&nojsoncallback=1&safe_search=1";
@@ -251,8 +269,6 @@ function makeSearch(x, y) {
     url += '&lat=' + x;
     url += '&lon=' + y ;
     url += '&radius=20' ;
-    console.log(url);
-
     url = encodeURI(url);
     xhr.open("GET", url, true);
     xhr.send()
