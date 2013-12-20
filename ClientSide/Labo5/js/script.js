@@ -43,23 +43,6 @@ $('article a').click(function(){
         case 'verwijderen':
             if(confirm('zeker?')){
                 $.get( 'includes/api.php', { id : contactId, action : "delete" });
-
-                /*$.ajax({
-                    url: 'includes/api.php',
-                    type: 'get',
-                    data: {
-                        id: id,
-                        action: "delete"
-                    },
-                    success: function(data, textStatus, jqXHR) {
-                        console.log('success');
-                        console.log(id);
-                        // article.hide();
-                    },
-                    error : function(jqXHR, textStatus, errorThrown) {
-                        console.log('error');
-                    }
-                });*/
             }
             break;
         case 'bewerken':

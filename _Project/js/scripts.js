@@ -10,15 +10,19 @@ var distances = [];
 var markers = [];
 var LastRouteId;
 
+var feedback = $('#feedback');
+
 $("#save-route").click(function(){
     var name = $('#save-text').val();
 
     if (route.getPath().length <= 0) {
-        $('#feedback').text('Please add points first');
+        feedback.text('Please add points first');
+        feedback.fadeIn().delay(1000).fadeOut();
         return;
     }
     if (name == '') {
-        $('#feedback').text('Please enter a name');
+        feedback.text('Please enter a name');
+        feedback.fadeIn().delay(1000).fadeOut();
         return;
     }
 
@@ -33,37 +37,41 @@ $("#save-route").click(function(){
         var a = JSON.parse(result);
         console.log(a);
         LastRouteId = parseInt(a[0].lastRouteID);
-        $('#feedback').text(a[1].Message + ' ' + name);
-        $('#saved-routes').append(new Option(name, LastRouteId));
+        feedback.text(a[1].Message + ' ' + name);
+        feedback.fadeIn().delay(1000).fadeOut();
+        $('#load-routes').append(new Option(name, LastRouteId));
     });
 });
 $('#clear-route').click(function(){
     clearMarkers();
 });
 $('#load-route').click(function(){
-    if ($('#saved-routes').val() != -1) {
+    if ($('#load-routes').val() != -1) {
         clearMarkers();
-
         // get ID
         $.get(
             'includes/api.php',
             {
                 request: 'route',
-                id: $('#saved-routes').val()
+                id: $('#load-routes').val()
             }
         ).done (function (result) {
             var a = JSON.parse(result);
             console.log(a);
 
-            r = a[0];
+            var r = a[0];
             // route = null;
             for (var i = 0; i < r.markers.length; i++){
                 addMarker(r.markers[i].locX, r.markers[i].locY);
             }
-            $('#feedback').html(a[1].Message);
+            feedback.text(a[1].Message);
+            feedback.fadeIn().delay(1000).fadeOut();
+            makeSearch(markers[markers.length-1]['position'].nb, markers[markers.length-1]['position'].ob);
+            map.setCenter(markers[0]['position']);
         });
     } else {
-        $('#feedback').text('Please select a route');
+        feedback.text('Please select a route');
+        feedback.fadeIn().delay(1000).fadeOut();
     }
 });
 
@@ -71,13 +79,14 @@ $('#load-route').click(function(){
 function initialize() {
     var mapOptions = {
         zoom: 18,
-        center: new google.maps.LatLng(27.9881, 86.9253),
+        center: new google.maps.LatLng(27.000097, 86.92128),
         panControl: false,
-        zoomControl: true,
+        zoomControl: false,
         mapTypeControl: false,
         scaleControl: false,
         streetViewControl: false,
-        overviewMapControl: false
+        overviewMapControl: false,
+        mapTypeId: google.maps.MapTypeId.SATELLITE
     };
     var routeOptions = {
         strokeColor: '#000000',
@@ -143,9 +152,14 @@ function initialize() {
             if (routes[i]['id'] > LastRouteId){
                 LastRouteId = routes[i]['id'];
             }
-            $('#saved-routes').append(new Option(routes[i]['name'],routes[i]['id']));
+            $('#load-routes').append(new Option(routes[i]['name'],routes[i]['id']));
         }
 
+    });
+
+    $(".fancybox").fancybox({
+        openEffect	: 'none',
+        closeEffect	: 'none'
     });
 }
 
@@ -206,5 +220,42 @@ function updateElevation() {
             alert("Elevation service failed due to: " + status);
         }
     });
+}
+var xhr = new XMLHttpRequest();
+var pics = $('#pics');
+
+xhr.onreadystatechange = function(e) {
+    pics.text('');
+    console.log(this.responseText);
+    var data = JSON.parse(this.responseText);
+    data = data.photos.photo;
+    for (var i = 0; i < data.length; i++) {
+        var img = $('<img>');
+        var a = $('<a>');
+        img.attr('src', data[i].url_m);
+        img.addClass('box-shadow');
+        a.attr('href', data[i].url_m);
+        a.addClass('fancybox');
+
+        img.appendTo(a);
+        a.appendTo(pics);
+    }
+}
+
+function makeSearch(x, y) {
+
+    console.log("x: " + x  + ", y: " + y );
+    var url = "http://api.flickr.com/services/rest/?method=flickr.photos.search" +
+        "&extras=url_m&per_page=20&format=json&nojsoncallback=1&safe_search=1";
+    url += '&api_key=6ecfcd8d4a3b8a04da6093733db989a2';
+    url += '&lat=' + x;
+    url += '&lon=' + y ;
+    url += '&radius=20' ;
+    console.log(url);
+
+    url = encodeURI(url);
+    xhr.open("GET", url, true);
+    xhr.send()
+    pics.fadeIn().text('Getting pictures, please wait ...');
 }
 google.maps.event.addDomListener(window, 'load', initialize);

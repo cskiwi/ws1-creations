@@ -10,27 +10,44 @@
 
 
 <div id="map-canvas" style="width: 100%; height: 100%"></div>
+
 <div id="map-overlay">
-    <div id = "top-right">
-        <div id="height-map"></div>
-        <input type="text" id="save-text" />
-        <button id="save-route">Save route</button>
-        <button id="clear-route">Clear route</button>
-        <br/>
-        <select id="saved-routes">
+    <div id="save">
+        <input type="text" id="save-text" class="savebox box-shadow" />
+        <button id="save-route" class="button">Save</button>
+        <button id="clear-route" class="button">Clear</button>
+    </div>
+
+    <div id="height-map" class="box-shadow box"></div>
+    <div id ="pics" class="box-shadow box"></div>
+    <div id = "load">
+        <select id="load-routes" class="loadbox box-shadow">
             <option value="-1">select route</option>
         </select>
-        <button id="load-route">Load Route</button>
-        <div id="feedback"></div>
-
+        <button id="load-route" class="button">Load</button>
     </div>
+    <div id="feedback" class="box box-shadow"></div>
 </div>
 
 
 </body>
 <script type="text/javascript" src="_lib/jquery-2.0.3.min.js"></script>
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCNaAQihXjwRVhv5i9afWEjm61lqgjY9Uk&sensor=true&libraries=geometry"></script>
-<script type="text/javascript" src="js/scripts.js"></script>
 <script type="text/javascript" src="_lib/globalize.min.js"></script>
 <script type="text/javascript" src="_lib/dx.chartjs.js"></script>
+
+<!-- Add fancyBox -->
+<link rel="stylesheet" href="_lib/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="_lib/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+<!-- Optionally add helpers - button, thumbnail and/or media -->
+<link rel="stylesheet" href="_lib/fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+<script type="text/javascript" src="_lib/fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="_lib/fancybox/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+
+<link rel="stylesheet" href="_lib/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="_lib/fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCNaAQihXjwRVhv5i9afWEjm61lqgjY9Uk&sensor=true&libraries=geometry"></script>
+
+<script type="text/javascript" src="js/scripts.js"></script>
 </html>

@@ -24,3 +24,4 @@
 [INFO] 2013-12-19 21:50:32 27.984434836636
 [INFO] 2013-12-19 21:50:54 27.984434836636
 [QUERY] 2013-12-19 22:20:33 route with id undefined not found
+[QUERY] 2013-12-20 08:53:55 Table 'r0359502_project.routes' doesn't exist
