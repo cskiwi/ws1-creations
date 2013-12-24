@@ -8,11 +8,12 @@ var elevator;
 var elevations = [];
 var distances = [];
 var markers = [];
+var infomarkers = [];
+var infowindows = [];
 var LastRouteId;
 var xhr;
 
 var feedback = $('#feedback');
-var pics = $('#pics');
 var heightmap = $("#height-map");
 var load_routes = $('#load-routes');
 
@@ -24,8 +25,8 @@ $("#save-route").click(function(){
         feedback.fadeIn().delay(1000).fadeOut();
         return;
     }
-    if (name == '') {
-        feedback.text('Please enter a name');
+    if (!name.match(/^(?=.*[A-Z0-9])[\w.,!"'\/$ ]+$/i)) {
+        feedback.text('Please enter valid a name');
         feedback.fadeIn().delay(1000).fadeOut();
         return;
     }
@@ -49,7 +50,6 @@ $("#save-route").click(function(){
 });
 $('#clear-route').click(function(){
     clearMarkers();
-    pics.fadeOut();
 });
 
 $('#load-route').click(function(){
@@ -86,7 +86,7 @@ $('#load-route').click(function(){
 function initialize() {
     var mapOptions = {
         zoom: 18,
-        center: new google.maps.LatLng(46.727624, 9.608917),
+        center: new google.maps.LatLng(46.739424, 9.598991),
         panControl: false,
         zoomControl: false,
         mapTypeControl: false,
@@ -138,7 +138,7 @@ function initialize() {
             title : "Height (m)"
         },
         argumentAxis: {
-            title : "Distnace (m)",
+            title : "Distance (m)",
             grid: { visible: true }
         },
         animation: {
@@ -172,21 +172,30 @@ function initialize() {
     });
 
     xhr.onreadystatechange = function(e) {
-        pics.text('');
         try {
             var data = JSON.parse(this.responseText);
             data = data.photos.photo;
+            var picDiv = $('<div>');
+            picDiv.attr('id', 'locationPictures');
             for (var i = 0; i < data.length; i++) {
                 var img = $('<img>');
                 var a = $('<a>');
                 img.attr('src', data[i].url_m);
                 img.addClass('box-shadow');
+                img.addClass('locationPic');
                 a.attr('href', data[i].url_m);
                 a.addClass('fancybox');
-
                 img.appendTo(a);
-                a.appendTo(pics);
+                a.appendTo(picDiv);
             }
+            var infowindow = new google.maps.InfoWindow({
+                content: picDiv.outerHTML()
+            });
+            infowindow.open(map, markers[0]);
+
+            google.maps.event.addListener(markers[0], 'click', function() {
+                infowindow.open(map,markers[0]);
+            });
         } catch (e) {
         }
     }
@@ -196,6 +205,9 @@ function clearMarkers(){
     route.setPath([]);
     for(var i = 0; i < markers.length; i++){
         markers[i].setMap(null);
+    }
+    for(var i = 0; i < infomarkers.length; i++){
+        infomarkers[i].setMap(null);
     }
     elevations = [];
     distances = [];
@@ -215,10 +227,11 @@ function placeMarker(x, y) {
     var path = route.getPath();
     var point = new google.maps.LatLng(x, y);
     path.push(point);
-
+    var icon = (markers.length < 1) ? 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png' : 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
     var marker = new google.maps.Marker({
         position: point,
-        map: map
+        map: map,
+        icon: icon
     });
     markers.push(marker);
 }
@@ -258,20 +271,23 @@ function updateElevation() {
 
 
 function getPictures(){
-    makeSearch(markers[markers.length-1]['position'].nb, markers[markers.length-1]['position'].ob);
+    makeSearch(markers[0]['position'].nb, markers[0]['position'].ob);
 }
 
 function makeSearch(x, y) {
     console.log("x: " + x  + ", y: " + y );
     var url = "http://api.flickr.com/services/rest/?method=flickr.photos.search" +
-        "&extras=url_m&per_page=20&format=json&nojsoncallback=1&safe_search=1";
+        "&extras=url_m,geo&per_page=20&format=json&nojsoncallback=1&safe_search=1";
     url += '&api_key=6ecfcd8d4a3b8a04da6093733db989a2';
     url += '&lat=' + x;
     url += '&lon=' + y ;
-    url += '&radius=20' ;
+    url += '&radius=2' ;
     url = encodeURI(url);
     xhr.open("GET", url, true);
     xhr.send()
-    pics.fadeIn().text('Getting pictures, please wait ...');
 }
+
+jQuery.fn.outerHTML = function() {
+    return jQuery('<div />').append(this.eq(0).clone()).html();
+};
 google.maps.event.addDomListener(window, 'load', initialize);
