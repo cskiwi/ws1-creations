@@ -12,7 +12,7 @@
 <div id="map-canvas"></div>
 
 <div id="map-overlay">
-    <div id="feedback" class="box box-shadow">Test</div>
+    <div id="feedback" class="box box-shadow"></div>
 
     <div id="save">
         <input type="text" id="save-text" class="box box-shadow" />
@@ -20,7 +20,10 @@
         <button id="clear-route" class="button">Clear</button>
     </div>
 
-    <div id="height-map" class="box-shadow box"></div>
+    <div id="height" class="box-shadow box">
+        <div id="height-map"></div>
+        <div id="heightdiff"></div>
+    </div>
     <div id = "load">
         <select id="load-routes" class="loadbox box-shadow">
             <option value="-1">Select route</option>
@@ -31,6 +34,7 @@
 
 
 </body>
+<!-- SCRIPTS! -->
 <script type="text/javascript" src="_lib/jquery-2.0.3.min.js"></script>
 <script type="text/javascript" src="_lib/globalize.min.js"></script>
 <script type="text/javascript" src="_lib/dx.chartjs.js"></script>

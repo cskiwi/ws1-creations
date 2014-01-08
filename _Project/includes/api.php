@@ -35,7 +35,7 @@ if(isset($_GET['input']))
     $route = new Route($latestRouteId, $string['name']);
 
     foreach($string['b'] as $loc) {
-        $marker = new Marker($latestMarkerId, $route->id ,$loc['nb'],$loc['ob']);
+        $marker = new Marker($latestMarkerId, $route->id ,$loc['b'],$loc['d']);
         $route->addMarker($marker);
         $latestMarkerId++;
     }

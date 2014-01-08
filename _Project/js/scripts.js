@@ -9,12 +9,13 @@ var elevations = [];
 var distances = [];
 var markers = [];
 var infomarkers = [];
-var infowindows = [];
 var LastRouteId;
 var xhr;
+var maxHeight = 0;
+var minHeight = 0;
 
 var feedback = $('#feedback');
-var heightmap = $("#height-map");
+var heightmap = $("#height");
 var load_routes = $('#load-routes');
 
 $("#save-route").click(function(){
@@ -40,7 +41,7 @@ $("#save-route").click(function(){
         { input: routedata}
     ).done (function (result) {
         var a = JSON.parse(result);
-        console.log(a);
+        // console.log(a);
         LastRouteId = parseInt(a[0].lastRouteID);
         feedback.text(a[1].Message + ' ' + name);
         feedback.fadeIn().delay(1000).fadeOut();
@@ -64,7 +65,7 @@ $('#load-route').click(function(){
             }
         ).done (function (result) {
             var a = JSON.parse(result);
-            console.log(a);
+            // console.log(a);
 
             var r = a[0];
             // route = null;
@@ -110,7 +111,7 @@ function initialize() {
     google.maps.event.addListener(map, 'click', click);
 
     // chart
-    heightmap.dxChart({
+    heightmap.children('#height-map').dxChart({
         dataSource: elevations,
         commonSeriesSettings: {
             argumentField: 'distancePassed'
@@ -154,7 +155,7 @@ function initialize() {
         }
     ).done (function (result) {
         var a = JSON.parse(result);
-        console.log(a);
+        // console.log(a);
 
         routes = a[0];
         for (var i = 0; i < routes.length; i++){$
@@ -215,10 +216,13 @@ function clearMarkers(){
     updatedChart();
 }
 function click(event) {
-    addMarker(event.latLng.nb, event.latLng.ob);
+    // console.log(event);
+
+    addMarker(event.latLng.b, event.latLng.d);
 }
 
 function addMarker(x, y) {
+    // console.log(x, y);
     placeMarker(x, y);
     updateDistance();
     updateElevation();
@@ -245,9 +249,12 @@ function updateDistance() {
 }
 
 function updatedChart(){
-    if (markers.length > 0)
-        heightmap.fadeIn().dxChart('option','dataSource',elevations);
-    else if (heightmap.is(":visible")){
+    if (markers.length > 0) {
+        var diff = maxHeight - minHeight;
+        heightmap.fadeIn()
+            .children('#height-map').dxChart('option','dataSource',elevations).parent()
+            .children('#heightdiff').text('Height difference: ' + diff + 'm' );
+    } else if (heightmap.is(":visible")){
         heightmap.fadeOut();
     }
 }
@@ -262,6 +269,14 @@ function updateElevation() {
         if (status == google.maps.ElevationStatus.OK && results[0]) {
             elevations.push(results[0]);
             elevations[elevations.length-1].distancePassed = (elevations[0].distancePassed == null)? 0 : elevations[elevations.length-1].distancePassed = elevations[elevations.length-2].distancePassed + distances[elevations.length-2];
+
+            console.log(results[0]['elevation'] + 'min:' + minHeight + ', max:' +maxHeight );
+
+            if (results[0]['elevation'] > maxHeight || maxHeight == 0)
+                maxHeight = results[0]['elevation'];
+            if (results[0]['elevation'] < minHeight || minHeight == 0)
+                minHeight = results[0]['elevation'];
+
             updatedChart();
         } else {
             alert("Elevation service failed due to: " + status);
@@ -271,11 +286,12 @@ function updateElevation() {
 
 
 function getPictures(){
-    makeSearch(markers[0]['position'].nb, markers[0]['position'].ob);
+    // console.log(markers[0]);
+    makeSearch(markers[0]['position'].b, markers[0]['position'].d);
 }
 
 function makeSearch(x, y) {
-    console.log("x: " + x  + ", y: " + y );
+    // console.log("x: " + x  + ", y: " + y );
     var url = "http://api.flickr.com/services/rest/?method=flickr.photos.search" +
         "&extras=url_m,geo&per_page=20&format=json&nojsoncallback=1&safe_search=1";
     url += '&api_key=6ecfcd8d4a3b8a04da6093733db989a2';
@@ -291,3 +307,13 @@ jQuery.fn.outerHTML = function() {
     return jQuery('<div />').append(this.eq(0).clone()).html();
 };
 google.maps.event.addDomListener(window, 'load', initialize);
+
+// Function to get the Max value in Array
+Array.max = function( array ){
+    return Math.max.apply( Math, array );
+};
+
+// Function to get the Min value in Array
+Array.min = function( array ){
+    return Math.min.apply( Math, array );
+};
