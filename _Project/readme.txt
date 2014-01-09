@@ -1,1 +1,1 @@
-glennlatomme.ikdoeict.be
+http://glennlatomme.ikdoeict.be/_Project/
