@@ -5,12 +5,12 @@
 var audio = new Audio();
 audio.src = 'track1.mp3';
 audio.controls = true;
-audio.loop = true;
-audio.autoplay = false;
+audio.autoplay = true;
 // Establish all variables that your Analyser will use
 var canvas, ctx, source, context, analyser, fbc_array, bars, bar_x, bar_width, bar_height, pies, pielength;
 var animationCanvas,animation,centerX,centerY;
 var output, inputLength, bardata, piedata, random =[], rot = [], color;
+var songs=[], currentSongID;
 
 window.onload = function() {
 // Initialize the MP3 player after the page loads all of its HTML into the window
@@ -29,12 +29,10 @@ window.onload = function() {
 
     animation = $('#animation')[0].getContext("2d");
     // animation.translate(0.5, 0.5);
-    console.log(animationCanvas);
-    console.log('test');
     centerX = animationCanvas.width() / 2;
     centerY = animationCanvas.height() / 2;
 
-// Re-route audio playback into the processing graph of the AudioContext
+    // Re-route audio playback into the processing graph of the AudioContext
     source = context.createMediaElementSource(audio);
     source.connect(analyser);
     analyser.connect(context.destination);
@@ -46,20 +44,47 @@ window.onload = function() {
         random.push(random[i-1] + Math.floor((Math.random()*100)+1));
         rot.push(Math.random());
     }
+    var last;
+    $('ul li a').each(function(){
+        songs.push({location: $(this).attr('data-src'), songID: $(this).attr('songID')})
+        last = songs[songs.length-1];
+        analyze(last);
+    });
+    $('#songs li').shuffle();
 
-
+    $("#audio_box audio").bind("ended", function(){
+        playSong(currentSongID +1);
+    });
 
     frameLooper();
 }
 
-$('ul li a').click(function(){
-    var newSong = $(this).attr('data-src');
-    // console.log(newSong);
-    audio.src = newSong;
+$('#songs li a').click(function(){
+    var songID = $(this).attr('songID');
+    playSong(songID);
 })
 $('#debug').click(function(){
     console.log(canvas);
 });
+
+
+
+function analyze(file){
+    ID3.loadTags(file.location, function() {
+        var tags = ID3.getAllTags(file.location);
+        songs[file.songID].tags = tags;
+        $('ul li a[songID='+file.songID+']').text(tags.artist + ' - ' + tags.title);
+    });
+}
+
+function playSong(id){
+    if (id >= songs.length) id = 0;
+    if (id < 0) id = songs.length-1;
+    currentSongID = id;
+    $('#songInfo').text(songs[id].tags.artist + ' - ' + songs[id].tags.title)
+    audio.src = songs[id].location;
+    audio.play();
+}
 
 // frameLooper() animates any style of graphics you wish to the audio frequency
 // Looping at the default frame rate that the browser provides(approx. 60 FPS)
@@ -86,14 +111,11 @@ function frameLooper(){
 
     color = 'rgba(0, 127, 255, .9)';
     piedata = avareageArray(fbc_array, pies);
-    var avg = avareageArray(fbc_array, 1)/2;
     for (var i = 0; i < pies; i++) {
         pielength = piedata[i]/2;
-        pielength = pielength < avg/3 ? 10 + pielength : 50 + Math.abs(pielength-avg)*2;
         drawWedge(centerX, centerY, pielength, random[i] + rot[i], color);
         rot[i] += random[i]/1000;
     }
-
 }
 function drawWedge2(centerX, centerY, r, start, end, color) {
     animation.beginPath();
@@ -142,3 +164,24 @@ function performCalc(values, size, from, to) {
     }
     return sum / (to - from);
 }
+
+$.fn.shuffle = function() {
+
+    var allElems = this.get(),
+        getRandom = function(max) {
+            return Math.floor(Math.random() * max);
+        },
+        shuffled = $.map(allElems, function(){
+            var random = getRandom(allElems.length),
+                randEl = $(allElems[random]).clone(true)[0];
+            allElems.splice(random, 1);
+            return randEl;
+        });
+
+    this.each(function(i){
+        $(this).replaceWith($(shuffled[i]));
+    });
+
+    return $(shuffled);
+
+};
