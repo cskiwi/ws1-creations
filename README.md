@@ -1,6 +1,6 @@
 ws1-creations
 =================
 
-Webscripten online backup just in case :)
+Webscripten online version
 
 by Glenn Latomme
