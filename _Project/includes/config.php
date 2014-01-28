@@ -23,7 +23,7 @@
 	define ('DB_USER', 'r0359502');
 
 	// Database Server Password
-	define ('DB_PASS', 'Cskiwi147963');
+	define ('DB_PASS', '');
 
 	// Database Name
 	define ('DB_NAME', 'r0359502_project');
