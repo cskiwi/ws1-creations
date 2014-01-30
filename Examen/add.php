@@ -102,7 +102,7 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
  * ----------------------------------------------------------------
  */
 
-$tpl = $twig->loadTemplate('add.twig');
+$tpl = $twig->loadTemplate('add.tpl');
 echo $tpl->render(array(
     'user' => $user,
     'errors' => $formErrors,

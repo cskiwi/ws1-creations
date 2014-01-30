@@ -86,7 +86,7 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
             }
 
             try {
-                $template = $twig->loadTemplate('index.twig');
+                $template = $twig->loadTemplate('index.tpl');
             } catch (Exception $e) {
                 if (false !== $exception) {
                     $this->assertEquals(trim($exception), trim(sprintf('%s: %s', get_class($e), $e->getMessage())));
@@ -146,7 +146,7 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
         $templates = array();
         preg_match_all('/--TEMPLATE(?:\((.*?)\))?--(.*?)(?=\-\-TEMPLATE|$)/s', $test, $matches, PREG_SET_ORDER);
         foreach ($matches as $match) {
-            $templates[($match[1] ? $match[1] : 'index.twig')] = $match[2];
+            $templates[($match[1] ? $match[1] : 'index.tpl')] = $match[2];
         }
 
         return $templates;

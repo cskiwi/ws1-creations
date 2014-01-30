@@ -88,7 +88,7 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'login')) {
     }
 }
 
-$tpl = $twig->loadTemplate('login.twig');
+$tpl = $twig->loadTemplate('login.tpl');
 echo $tpl->render(array(
     'user' =>  $user,
     'username' => $username,

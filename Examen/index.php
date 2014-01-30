@@ -75,7 +75,7 @@ if($stmt != null) {
  * ----------------------------------------------------------------
  */
 
-$tpl = $twig->loadTemplate('index.twig');
+$tpl = $twig->loadTemplate('index.tpl');
 echo $tpl->render(array(
     'movies' => $fetch,
     'user' => $user,
