@@ -219,7 +219,7 @@
 		helpers     : {},
 
 		/*
-		 *	Static methods
+		 *	static-pages methods
 		 */
 
 		open: function (group, opts) {

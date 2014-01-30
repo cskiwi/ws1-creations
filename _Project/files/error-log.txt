@@ -1,0 +1,1 @@
+[CONNECT] 2014-01-30 13:37:21 Access denied for user 'r0359502'@'localhost' (using password: NO)

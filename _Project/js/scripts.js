@@ -231,7 +231,7 @@ function addMarker(x, y) {
 
 function getPictures(){
     // get pictures based on first marker
-    makeSearch(markers[0].getPosition().lat(), markers[0].getPosition().lon());
+    makeSearch(markers[0].getPosition().lat(), markers[0].getPosition().lng());
 }
 
 function placeMarker(x, y) {
@@ -299,6 +299,7 @@ function updateElevation() {
 
 
 function makeSearch(x, y) {
+    console.log(x + ' , ' + y);
     var url = "http://api.flickr.com/services/rest/?method=flickr.photos.search" +
         "&extras=url_m,geo&per_page=20&format=json&nojsoncallback=1&safe_search=1";
     url += '&api_key=6ecfcd8d4a3b8a04da6093733db989a2';
