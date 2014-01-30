@@ -28,8 +28,8 @@
                         <input class="form-control" type="text" name="title" id="title" value="{{ title }}" autocomplete="off" placeholder="Title of the Movie" maxlength="255" />
                     </div>
                     <div class="form-group">
-                        <label for="title">Year</label>
-                        <input class="form-control" type="number" name="year" id="year" value="{{ year }}" autocomplete="off" placeholder="Year the movie was released" maxlength="4" />
+                        <label for="year">Year</label>
+                        <input class="form-control" type="number" name="year" id="year" value="{% if year > 0 %}{{ year }}{% endif %}" autocomplete="off" placeholder="Year the movie was released" maxlength="4" />
                     </div>
                     <div class="form-group">
                         <label for="genre_id">Genre</label>
