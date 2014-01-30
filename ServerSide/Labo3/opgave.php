@@ -36,7 +36,7 @@ if (isset($_FILES['addImage'])) {
     if ($continue) {
         /*
             echo '<p>Uploaded file: ' . $_FILES['addImage']['name'] . '</p>';
-            echo '<p>Temp location: ' . $_FILES['addImage']['tmp_name'] . '</p>';
+            echo '<p>_Template location: ' . $_FILES['addImage']['tmp_name'] . '</p>';
             echo '<p>Size: ' . $_FILES['addImage']['size'] . '</p>';*/
 
         if (!in_array((new SplFileInfo($_FILES['addImage']['name']))->getExtension(), array('jpeg', 'jpg', 'png', 'gif'))) {
