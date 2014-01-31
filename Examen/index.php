@@ -51,8 +51,7 @@ $twig = new Twig_Environment($loader, array('debug' => true));
  */
 
 if ($genre_id != -1){
-
-    if(array_key_exists($genre_id,$genres)){
+    if(array_key_exists($genre_id-1,$genres)){
         $stmt = $db->prepare('SELECT movies.*, users.username, genres.title as genre FROM movies INNER JOIN users on movies.user_id = users.id INNER JOIN genres on movies.genre_id=genres.id WHERE genres.id = ? ORDER BY movies.title ASC');
         $stmt->execute(array($genre_id));
     } else {
