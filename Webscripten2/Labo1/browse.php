@@ -6,13 +6,13 @@
  */
 
 // config & functions
-require_once __DIR__ . '/includes/config.php';
-require_once __DIR__ . '/includes/functions.php';
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/templates');
 $twig = new Twig_Environment($loader);
+
 
 /**
  * Session Control: Only allow logged in users to this site
@@ -34,7 +34,24 @@ if (!isset($_SESSION['user'])) {
  * ----------------------------------------------------------------
  */
 
-$db = getDatabase();
+// Connect to the database
+$config = new \Doctrine\DBAL\Configuration();
+$connectionParams = array(
+    'dbname' => 'todo',
+    'user' => 'root',
+    'password' => 'Azerty123',
+    'host' => 'localhost',
+    'driver' => 'pdo_mysql',
+    'charset' => 'utf8'
+);
+$db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
+
+// Test connection
+try {
+    $db->connect();
+} catch (\PDOException $e) {
+    exit('Could not connect to database:<br /><code>' . $e->getMessage() . '</code>');
+}
 
 
 /**
@@ -54,7 +71,7 @@ $priority = isset($_POST['priority']) ? $_POST['priority'] : 'low'; // The prior
  * Handle action 'add' (user pressed add button)
  * ----------------------------------------------------------------
  */
-
+/*
 if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
 
 
@@ -89,7 +106,7 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
     }
 
 }
-
+*/
 
 /**
  * No action to handle: show our page itself
@@ -97,10 +114,8 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
  */
 
 // Get all todo items from databases
-$stmt = $db->prepare('SELECT * FROM todolist WHERE user_id = ? ORDER BY priority, what DESC');
-$stmt->execute(array($_SESSION['user']['id']));
-
-$items = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$stmt = $db->executeQuery('SELECT * FROM todolist WHERE user_id = ? ORDER BY priority, what DESC', array(1, $_SESSION['user']['id']));
+$items = $stmt->fetchAll();
 
 /**
  * Load and render template
