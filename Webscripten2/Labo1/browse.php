@@ -6,8 +6,10 @@
  */
 
 // config & functions
-
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/functions.php';
 require_once __DIR__ . '/vendor/autoload.php';
+
 
 Twig_Autoloader::register();
 $loader = new Twig_Loader_Filesystem(__DIR__ . '/templates');
@@ -35,24 +37,8 @@ if (!isset($_SESSION['user'])) {
  */
 
 // Connect to the database
-$config = new \Doctrine\DBAL\Configuration();
-$connectionParams = array(
-    'dbname' => 'todo',
-    'user' => 'root',
-    'password' => 'Azerty123',
-    'host' => 'localhost',
-    'driver' => 'pdo_mysql',
-    'charset' => 'utf8'
-);
-$db = \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
 
-// Test connection
-try {
-    $db->connect();
-} catch (\PDOException $e) {
-    exit('Could not connect to database:<br /><code>' . $e->getMessage() . '</code>');
-}
-
+$db = getDatabase();
 
 /**
  * Initial Values
@@ -87,10 +73,12 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
 
     // form is correct: insert values into database
     if (sizeof($formErrors) == 0) {
-
-        // build & execute prepared statement
-        $stmt = $db->prepare('INSERT INTO todolist (what, user_id, priority, added_on) VALUES (?, ?, ?, ?)');
-        $stmt->execute(array($what, $_SESSION['user']['id'], $priority, (new DateTime())->format('Y-m-d H:i:s')));
+        $db->insert('todolist', array(
+            'what' => $what,
+            'user_id' => $_SESSION['user']['id'],
+            'priority' => $priority,
+            'added_on' => (new DateTime())->format('Y-m-d H:i:s')
+        ));
 
         // the query succeeded, redirect to this very same page
         if ($db->lastInsertId() !== 0) {
@@ -114,8 +102,7 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
  */
 
 // Get all todo items from databases
-$stmt = $db->executeQuery('SELECT * FROM todolist WHERE user_id = ? ORDER BY priority, what DESC', array($_SESSION['user']['id']));
-$items = $stmt->fetchAll();
+$items = $db->fetchAll('SELECT * FROM todolist WHERE user_id = ? ORDER BY priority, what DESC', array($_SESSION['user']['id']));
 
 /**
  * Load and render template

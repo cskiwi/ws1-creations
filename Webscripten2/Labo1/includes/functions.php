@@ -48,10 +48,16 @@
 	 */
 	function getDatabase() {
 		try {
-			$db = new PDO('mysql:host=' . DB_HOST .';dbname=' . DB_NAME . ';charset=utf8', DB_USER, DB_PASS);
-			$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-			return $db;
+            $config = new \Doctrine\DBAL\Configuration();
+            $connectionParams = array(
+                'dbname' => DB_NAME,
+                'user' => DB_USER,
+                'password' => DB_PASS,
+                'host' => DB_HOST,
+                'driver' => 'pdo_mysql',
+                'charset' => 'utf8'
+            );
+            return \Doctrine\DBAL\DriverManager::getConnection($connectionParams, $config);
 		} catch (Exception $e) {
 			showDbError('connect', $e->getMessage());
 		}

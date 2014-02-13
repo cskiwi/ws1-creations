@@ -58,30 +58,22 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'delete')) {
     $id = isset($_POST['id']) ? (int) $_POST['id'] : 0;
 
     // check if item exists (use the id from the $_POST array!)
-    $stmt = $db->prepare('SELECT COUNT(*) FROM todolist WHERE id = ? AND user_id = ?');
-    $stmt->execute(array($id, $_SESSION['user']['id']));
-    $numItems = $stmt->fetchColumn();
 
-    if ($numItems != 1) {
+    $item = $db->fetchAssoc('SELECT *  FROM todolist WHERE id = ? AND user_id = ?', array($id, $_SESSION['user']['id']));
+
+    if ($item == null) {
         header('location: browse.php');
+
         exit();
     }
 
     // form is correct: update values into database
     if (sizeof($formErrors) == 0) {
+        try {
+            $db->delete('todolist', array('id' => $id));
 
-        // build and execute statement
-        $stmt = $db->prepare('DELETE FROM todolist WHERE id = ?');
-        $stmt->execute(array($id));
-
-        // the query succeeded, redirect to this very same page
-        if ($stmt->rowCount() != 0) {
-            header('location: browse.php');
-            exit();
-        }
-
-        // the query failed
-        else {
+            // the query failed
+        } catch (Exception $e) {
             $formErrors[] = 'Error while deleting the item. Please retry.';
         }
 
@@ -95,16 +87,11 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'delete')) {
  */
 
 // Check if the passed in id (in $_GET) exists as a todoitem
-$stmt = $db->prepare('SELECT * FROM todolist WHERE id = ? AND user_id = ?');
-$stmt->execute(array($id, $_SESSION['user']['id']));
-
-if ($stmt->rowCount() != 1) {
+$item = $db->fetchAssoc('SELECT * FROM todolist WHERE id = ? AND user_id = ?', array($id, $_SESSION['user']['id']));
+if ($item == null) {
     header('location: browse.php');
     exit();
 }
-
-// Get the item from the database
-$item = $stmt->fetch(PDO::FETCH_ASSOC);
 
 /**
  * Load and render template

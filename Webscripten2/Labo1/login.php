@@ -55,22 +55,14 @@ if ($username == '') {
  */
 
 if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'login')) {
-
-    // Get user with sent in username from DB
-    $stmt = $db->prepare('SELECT * FROM users WHERE username = ?');
-    $stmt->execute(array($username));
-
+    $user = $db->fetchAssoc('SELECT * FROM users WHERE username = ?', array($username));
     // No user found
-    if ($stmt->rowCount() != 1) {
+    if ($user == null) {
         $formErrors[] = 'Invalid login credentials'; // Don't be too specific here (Do not say "invalid username") to not give away that the username exists
     }
 
     // User found
     else {
-
-        // Fetch user
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
         // Password checks out
         if (crypt($password, $user['password']) == $user['password']) {
 
