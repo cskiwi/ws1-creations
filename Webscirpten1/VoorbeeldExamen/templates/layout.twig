@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+    <title>{{ pageTitle }}</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/forms.css" />
+    <link rel="stylesheet" href="css/tooltips.css" />
+</head>
+<body>
+<!-- header -->
+{% block pageHeader %}
+    <header><h2>{{ pageTitle }}</h2></header>
+{% endblock %}
+
+<!-- content -->
+<div>
+    <section>
+        {% block pageContent %}
+            <p>This should never be displayed!</p>
+        {% endblock %}
+    </section>
+</div>
+
+<!-- footer -->
+{% block pageFooter %}
+    <footer>
+        <p>Herhalingsoefening Webscripten 1, Serverside Webscripten, 2013</p>
+    </footer>
+{% endblock %}
+</body>
+</html>

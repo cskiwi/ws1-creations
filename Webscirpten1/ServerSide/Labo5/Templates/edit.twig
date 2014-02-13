@@ -1,0 +1,52 @@
+{% extends 'layout.twig' %}
+
+{% set pageTitle = 'Edit Item' %}
+    {% block javascript %}
+        <script src="js/edit.js"></script>
+    {% endblock %}
+
+{% block pageContent %}
+    <div class="box" id="boxAddTodo">
+
+        {# edit #}
+        <h2>Edit existing todo</h2>
+        <div class="boxInner">
+            <form action="{{ directTo }}" method="post">
+                <fieldset>
+                    <dl class="clearfix columns">
+                        <dd class="column column-46"><input type="text" name="what" id="what" value="{{ item.what }}" /></dd>
+                        <dd class="column column-16" id="col-priority">
+                            <select name="priority" id="priority">
+                                {% for prior in priorities %}
+                                    <option value="{{ prior }}"
+                                            {% if prior == item.priority %}
+                                                selected
+                                            {% endif %}
+                                            >{{ prior }}</option>
+                                {% endfor %}
+                            </select>
+                        </dd>
+                        <dd class="column column-16" id="col-submit">
+                            <label for="btnSubmit"><input type="submit" id="btnSubmit" name="btnSubmit" value="Edit" /></label>
+                            <input type="hidden" name="id" value="{{ item.id }}" />
+                            <input type="hidden" name="moduleAction" id="moduleAction" value="edit" />
+                        </dd>
+                    </dl>
+                </fieldset>
+            </form>
+            <p class="cancel">or <a href="index.php" title="Cancel and go back">Cancel and go back</a></p>
+        </div>
+    </div>
+
+    {# Error handeling#}
+    {% if errors  %}
+        <div class="box" id="boxError">
+            <ul class="errors">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'master.twig' %}
+
+{% block pageContent %}
+
+    <div class="box" id="boxCompleteTodo">
+
+        <h2>Register</h2>
+
+        <div class="boxInner">
+            <form action="{{ action }}" method="post">
+                <fieldset class="columns">
+                    <dd><label for="username" class="column column-12">Username:</label></dd>
+                    <dt><input type="text" id="username" name="username" value="{{ username }}" autocomplete="off" /></dt>
+
+                    <dd><label for="password" class="column column-12">Password:</label></dd>
+                    <dt><input id="password" type="password" name="password" value="" autocomplete="off" /></dt>
+
+                    <dd> <label for="password2" class="column column-12">Repeat pass:</label></dd>
+                    <dt> <input id="password2" type="password" name="password2" value="" autocomplete="off" /></dt>
+
+                    <label for="btnSubmit"><input type="submit" id="btnSubmit" name="btnSubmit" value="Register" /></label>
+
+                    <input type="hidden" name="moduleAction" id="moduleAction" value="register" />
+                </fieldset>
+            </form>
+        </div>
+
+    </div>
+
+    {% include 'partials/formerrors.twig' %}
+
+{% endblock %}

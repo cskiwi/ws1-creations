@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Project Webscripten 2</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link type="text/css" rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+
+
+<div id="map-canvas"></div>
+
+<div id="map-overlay">
+    <div id="feedback" class="box box-shadow"></div>
+
+    <div id="save">
+        <input type="text" id="save-text" class="box box-shadow" />
+        <button id="save-route" class="button">Save</button>
+        <button id="clear-route" class="button">Clear</button>
+    </div>
+
+    <div id="height" class="box-shadow box">
+        <div id="height-map"></div>
+        <div id="heightdiff"></div>
+    </div>
+    <div id = "load">
+        <select id="load-routes" class="loadbox box-shadow">
+            <option value="-1">Select route</option>
+        </select>
+        <button id="load-route" class="button">Load</button>
+    </div>
+</div>
+
+
+</body>
+<!-- SCRIPTS! -->
+<script type="text/javascript" src="_lib/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="_lib/globalize.min.js"></script>
+<script type="text/javascript" src="_lib/dx.chartjs.js"></script>
+<link rel="stylesheet" href="_lib/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+<script type="text/javascript" src="_lib/fancybox/jquery.fancybox.pack.js?v=2.1.5"></script>
+<link rel="stylesheet" href="_lib/fancybox/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
+<script type="text/javascript" src="_lib/fancybox/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+<script type="text/javascript" src="_lib/fancybox/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+<link rel="stylesheet" href="_lib/fancybox/helpers/jquery.fancybox-thumbs.css?v=1.0.7" type="text/css" media="screen" />
+<script type="text/javascript" src="_lib/fancybox/helpers/jquery.fancybox-thumbs.js?v=1.0.7"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCNaAQihXjwRVhv5i9afWEjm61lqgjY9Uk&sensor=true&libraries=geometry"></script>
+<script type="text/javascript" src="js/scripts.js"></script>
+</html>
