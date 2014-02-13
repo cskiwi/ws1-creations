@@ -71,7 +71,7 @@ $priority = isset($_POST['priority']) ? $_POST['priority'] : 'low'; // The prior
  * Handle action 'add' (user pressed add button)
  * ----------------------------------------------------------------
  */
-/*
+
 if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
 
 
@@ -106,7 +106,7 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
     }
 
 }
-*/
+
 
 /**
  * No action to handle: show our page itself
@@ -114,7 +114,7 @@ if (isset($_POST['moduleAction']) && ($_POST['moduleAction'] == 'add')) {
  */
 
 // Get all todo items from databases
-$stmt = $db->executeQuery('SELECT * FROM todolist WHERE user_id = ? ORDER BY priority, what DESC', array(1, $_SESSION['user']['id']));
+$stmt = $db->executeQuery('SELECT * FROM todolist WHERE user_id = ? ORDER BY priority, what DESC', array($_SESSION['user']['id']));
 $items = $stmt->fetchAll();
 
 /**
