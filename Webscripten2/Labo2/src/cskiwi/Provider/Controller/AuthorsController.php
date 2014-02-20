@@ -34,6 +34,8 @@ class AuthorsController implements ControllerProviderInterface {
 
 		$output = '<ul>';
 		foreach ($this->authors as $id => $author) {
+
+            $output .= '<li> <a href="' . $app['request']->getBaseUrl(). '/authors/' . $app->escape($id) . '">' .$author['firstname'] .' '. $author['lastname'] . '</a></li>';
 			// $output .= '<li><a href="' . $app['request']->getBaseUrl(). '/authors/' . $app->escape($id) . '">&para;</a> ' . $app->escape($blog['content']) . '<br />&mdash; by ' . $app->escape($this->authors[$blog['author_id']]['firstname'])  .' <i>' . $app->escape($blog['date']) . '</i></li>';
 		}
 		$output .= '</ul>';
@@ -46,7 +48,9 @@ class AuthorsController implements ControllerProviderInterface {
 			$app->abort(404, "blog $id does not exist");
 		}
         $author = $this->authors[$id];
-		$output = $app->escape($author['firstname']) . '</blockquote><p><a href="' . $app['request']->getBaseUrl(). '/authors">&larr; Back to overview</a></p>';
+		$output = '<blockquote><p>' . $app->escape($author['firstname']) . ' ' . $app->escape($author['lastname']) . '</br >Email: <a href="mailto:'.$app->escape($author['email']).'">' . $app->escape($author['email']) . '</a></br >Website: <a href="'.$app->escape($author['website']).'">' . $app->escape($author['website']) . '</a></br >Location: ' . $app->escape($author['location']) .   '</p></blockquote>';
+
+        $output .= '<p><a href="' . $app['request']->getBaseUrl(). '/blogposts">&larr; Back to overview</a></p>';
 		return $output;
 	}
 
