@@ -16,7 +16,7 @@ $app->error(function (\Exception $e, $code) {
 
 // Basic Routing
 $app->get('/', function(Silex\Application $app) {
-	return 'root';
+    return $app->redirect($app['request']->getBaseUrl() . '/blogposts');
 });
 
 // All URLs starting with /tweets should be handled by the TweetsController
