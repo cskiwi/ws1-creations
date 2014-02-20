@@ -1,8 +1,13 @@
 /
+
 /blogposts
-/blogposts/{id}
-/blogposts/{id}/comments
-/authors/{id}
-/authors/{id}/blogposts
+    /blogposts/{id}
+    /blogposts/{id}/comments
+
+/authors
+    /authors/{id}
+    /authors/{id}/blogposts
+
 /login
+
 /logout
