@@ -1,1 +1,2 @@
 [GENERAL] 2013-12-17 11:13:01 start
+[QUERY] 2014-02-25 10:35:58 Table 'contacts.contacts' doesn't exist
