@@ -22,3 +22,4 @@ $app->get('/', function(Silex\Application $app) {
 // All URLs starting with /tweets should be handled by the TweetsController
 $app->mount('/blogposts', new cskiwi\Provider\Controller\BlogsController($blogposts, $comments, $authors));
 $app->mount('/authors', new cskiwi\Provider\Controller\AuthorsController($authors, $blogposts));
+$app->mount('/admin', new cskiwi\Provider\Controller\AccountController($authors));

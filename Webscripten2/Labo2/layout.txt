@@ -8,6 +8,6 @@
     /authors/{id}
     /authors/{id}/blogposts
 
-/login
-
-/logout
+/admin
+    /admin/login
+    /admin/logout
