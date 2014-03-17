@@ -1,0 +1,30 @@
+{# extend the parent tpl #}
+{% extends './layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Auhtor | detail' %}
+
+{% block pageContent %}
+    <p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Blog</a> &raquo; Auhtors</p>
+
+    {% if author %}
+        <section class="author">
+            <article>
+                <h1>{{ author.firstname }} {{ author.lastname }}</h1>
+                <dl>
+                    <dt>E-mail address</dt>
+                    <dd><a href="mailto:{{ author.email }}">{{ author.email }}</a></dd>
+                    <dt>Website</dt>
+                    <dd>{% if author.website  %}<a href="{{ author.website }}">{{ author.website }}</a> {% else %}<span class="mute">(no website)</span> {% endif %}</dd>
+                    <dt>Location</dt>
+                    <dd>{{ author.location }}</dd>
+                    <dt>Blogposts</dt>
+                    <dd><a href="{{ app.request.baseUrl }}/authors/{{ author.id }}/blogposts">Show blogposts &rarr;</a></dd>
+                </dl>
+            </article>
+        </section>
+    {% endif %}
+
+    <p><a href="{{ app.request.baseUrl }}/authors">&larr; Back to authors overview</a></p>
+{% endblock %}

@@ -1,0 +1,19 @@
+{# extend the parent tpl #}
+{% extends './layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'blogposts' %}
+
+{% block pageContent %}
+    <p class="breadcrumb"><a href="{{ app.request.baseUrl }}/">Blog</a> &raquo; Auhtors</p>
+    <section class="authors">
+        {% if authors %}
+            <ul class="links">
+                {% for author in authors %}
+                    <li><a href="{{ app.request.baseUrl }}/authors/{{ author.id }}">{{ author.firstname }} {{ author.lastname }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
+{% endblock %}
