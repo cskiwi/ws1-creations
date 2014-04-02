@@ -104,11 +104,11 @@ class Blog implements ControllerProviderInterface {
                         // inject extra fields needed for database
                         $app['db.blog']->update(
                             array(
-                                'id' => $data['id']
-                            ),
-                            array(
                                 'title' => $data['title'],
                                 'content' => $data['content']
+                            )
+                            ,array(
+                                'id' => $data['id']
                             ));
 
                         return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
