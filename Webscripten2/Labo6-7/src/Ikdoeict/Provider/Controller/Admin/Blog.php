@@ -111,9 +111,12 @@ class Blog implements ControllerProviderInterface {
                                 'id' => $data['id']
                             ));
 
-                        return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
                     }
+                } else {
+                    return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
                 }
+            } else {
+                return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
             }
 
 
