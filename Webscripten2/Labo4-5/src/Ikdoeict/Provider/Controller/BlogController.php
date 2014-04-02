@@ -30,13 +30,11 @@ class BlogController implements ControllerProviderInterface {
 
 
     public function overview(Application $app) {
-
         $blogposts = $app['db.blogposts']->findAll();
         return $app['twig']->render('blogposts/overview.twig', array('blogposts' => $blogposts));
     }
 
     public function detail(Application $app, $blogpostId) {
-
         $blogpost = $app['db.blogposts']->find($blogpostId);
         return $app['twig']->render('blogposts/detail.twig', array('blogpost' => $blogpost));
 

@@ -1,0 +1,98 @@
+{# extend the parent tpl #}
+{% extends 'admin/layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Admin &raquo; Blog &raquo; Edit Blogpost' %}
+
+
+{# overwrite the pageContent block #}
+{% block pageContent %}
+    <form class="form-horizontal" method="post" action="#">
+        {{ form_widget(addBlogpostform._token) }}
+
+        <!-- Form Name -->
+        <legend>Edit Blog</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="title">Title</label>
+
+            <div class="row" >
+                <div class="col-sm-4">
+                    {{ form_widget(addBlogpostform.title, {'attr' : {'class' : 'form-control', 'placeholder' : 'Enter a good title'}}) }}
+                </div>
+                <div class="col-sm-5">
+                    {% if form_errors(addBlogpostform.title) %}
+                        <div class="alert alert-danger">
+                            {{ form_errors(addBlogpostform.title) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="content">Content</label>
+            <div class="row" >
+                <div class="col-sm-4">
+                    <textarea id="addBlogpostform_content" name="addBlogpostform[content]" placeholder="" class="form-control" contenteditable="true" rows="10">{{ blog.content | raw }}</textarea>
+                </div>
+
+                <div class="col-sm-5">
+                    {% if form_errors(addBlogpostform.content) %}
+                        <div class="alert alert-danger">
+                            {{ form_errors(addBlogpostform.content) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-9">
+                <button id="submit" name="submit" class="btn btn-info">Save settings</button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Form Name -->
+
+    <div class="panel panel-default widget">
+        <div class="panel-heading">
+            <span class="glyphicon glyphicon-comment"></span>
+            <h3 class="panel-title">Comments</h3>
+            <span class="label label-info">{{ comments|length }}</span>
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                {% for comment in comments %}
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-xs-3 col-md-2">
+                                <img src="http://placehold.it/80" class="img-circle img-responsive" alt="" />
+                                By: <a href="mailto:{{ comment.email }}">{{ comment.author }}</a> <br>
+                                on {{ comment.date }}</div>
+                            <div class="col-xs-5 col-md-6">
+                                <div class="comment-text">
+                                    {{ comment.content | raw }}
+                                </div>
+                                <div class="action">
+                                    <button type="button" class="btn btn-primary btn-xs" title="Edit"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button type="button" class="btn btn-success btn-xs" title="Approved"><span class="glyphicon glyphicon-ok"></span></button>
+                                    <button type="button" class="btn btn-danger btn-xs" title="Delete"><span class="glyphicon glyphicon-trash"></span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+
+
+            </ul>
+        </div>
+    </div>
+{% endblock %}

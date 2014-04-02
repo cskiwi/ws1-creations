@@ -1,0 +1,52 @@
+{# extend the parent tpl #}
+{% extends 'admin/layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Admin &raquo; Blog &raquo; Overview' %}
+
+
+{# overwrite the pageContent block #}
+{% block pageContent %}
+
+	<p class="text-right"><a href="{{ path('admin.blog.add') }}" class="btn btn-success btn-large">Add new blogpost</a></p>
+
+	<table class="table">
+		<thead>
+		<tr>
+			<th>#</th>
+			<th>Title</th>
+			<th>Added on</th>
+			<th class="text-center">Comments</th>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+        {% for blog in blogposts %}
+            <tr>
+                <td>{{ blog.id }}</td>
+                <td><a href="{{ path('admin.blog.edit', { 'blogpostId': blog.id }) }}">{{ blog.title }}</a></td>
+                <td>2013-03-07 18:22:25</td>
+                <td class="text-center">{{ blog.numcomments }}</td>
+                <td class="text-right">
+                    <form action="{{ path('admin.blog.delete', { 'blogpostId':  blog.id }) }}" method="post" class="delete">
+                        <button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> delete</button>
+                    </form>
+                </td>
+                <td class="text-right">
+                    <a href="{{ path('admin.blog.edit', { 'blogpostId':  blog.id }) }}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i> edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+		</tbody>
+	</table>
+
+	<script>
+		jQuery(function($) {
+			$('form.delete').on('submit', function(e) {
+				return confirm('Sure you want to delete this blogpost?');
+			});
+		});
+	</script>
+{% endblock %}

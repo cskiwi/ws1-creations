@@ -1,0 +1,63 @@
+{# extend the parent tpl #}
+{% extends 'admin/layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Admin &raquo; Blog &raquo; Add Blogpost' %}
+
+
+{# overwrite the pageContent block #}
+{% block pageContent %}
+    <form class="form-horizontal" method="post" action="#">
+        <!-- Token -->
+        {{ form_widget(addBlogpostform._token) }}
+
+        <!-- Form Name -->
+        <legend>Edit Blog</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="title">Title</label>
+
+            <div class="row" >
+                <div class="col-sm-4">
+                    {{ form_widget(addBlogpostform.title, {'attr' : {'class' : 'form-control', 'placeholder' : 'Enter a good title'}}) }}
+                </div>
+                <div class="col-sm-5">
+                    {% if form_errors(addBlogpostform.title) %}
+                        <div class="alert alert-danger">
+                            {{ form_errors(addBlogpostform.title) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Content input-->
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="title">Content</label>
+
+            <div class="row" >
+                <div class="col-sm-4">
+                    {{ form_widget(addBlogpostform.content, {'attr' : {'class' : 'form-control', 'placeholder' : 'Enter some good shit', 'rows' : 10}}) }}
+                </div>
+                <div class="col-sm-5">
+                    {% if form_errors(addBlogpostform.content) %}
+                        <div class="alert alert-danger">
+                            {{ form_errors(addBlogpostform.content) }}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-sm-2 control-label"></label>
+            <div class="col-sm-9">
+                <button id="submit" name="submit" class="btn btn-info">Save settings</button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
