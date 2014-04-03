@@ -3,30 +3,29 @@
 
 
 {# set the pagetitle in the parent tpl #}
-{% set pageTitle = 'Admin &raquo; Blog &raquo; Add Blogpost' %}
+{% set pageTitle = 'Auth &raquo; Please Log In' %}
 
 
 {# overwrite the pageContent block #}
 {% block pageContent %}
-    <form class="form-horizontal" method="post" action="#">
-        <!-- Token -->
-        {{ form_widget(addBlogpostform._token) }}
 
-        <!-- Form Name -->
-        <legend>Edit Blog</legend>
+
+    <form action="{{ path('admin.auth.login') }}" method="post" {{ form_enctype(loginform) }} novalidate="novalidate">
+        <!-- Token -->
+        {{ form_widget(loginform._token) }}
 
         <!-- Text input-->
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="title">{{ form_label(loginform.title) }}</label>
+            <label class="col-sm-2 control-label" for="title">{{ form_label(loginform.username) }}</label>
 
             <div class="row" >
                 <div class="col-sm-4">
-                    {{ form_widget(addBlogpostform.title, {'attr' : {'class' : 'form-control', 'placeholder' : 'Enter a good title'}}) }}
+                    {{ form_widget(loginform.username, {'attr' : {'class' : 'form-control', 'placeholder' : 'Enter a good title'}}) }}
                 </div>
                 <div class="col-sm-5">
-                    {% if form_errors(addBlogpostform.title) %}
+                    {% if form_errors(loginform.username) %}
                         <div class="alert alert-danger">
-                            {{ form_errors(addBlogpostform.title) }}
+                            {{ form_errors(loginform.username) }}
                         </div>
                     {% endif %}
                 </div>
@@ -35,16 +34,16 @@
 
         <!-- Content input-->
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="title">{{ form_label(loginform.content }}</label>
+            <label class="col-sm-2 control-label" for="title">{{ form_label(loginform.password) }}</label>
 
             <div class="row" >
                 <div class="col-sm-4">
-                    {{ form_widget(addBlogpostform.content, {'attr' : {'class' : 'form-control', 'placeholder' : 'Enter some good shit', 'rows' : 10}}) }}
+                    {{ form_widget(loginform.password, {'attr' : {'class' : 'form-control', 'placeholder' : 'Enter some good shit', 'rows' : 10}}) }}
                 </div>
                 <div class="col-sm-5">
-                    {% if form_errors(addBlogpostform.content) %}
+                    {% if form_errors(loginform.password) %}
                         <div class="alert alert-danger">
-                            {{ form_errors(addBlogpostform.content) }}
+                            {{ form_errors(loginform.password) }}
                         </div>
                     {% endif %}
                 </div>
@@ -56,7 +55,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label"></label>
             <div class="col-sm-9">
-                <button id="submit" name="submit" class="btn btn-info">Save settings</button>
+                <button id="submit" name="submit" class="btn btn-info">Login</button>
             </div>
         </div>
     </form>

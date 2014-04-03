@@ -40,15 +40,15 @@
 			</div>
 
 			{# User is logged in: show nagivation #}
-			{% if user %}
+			{% if user is defined %}
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
 					<li class="active"><a href="{{ path('admin.blog.overview') }}">Blog</a></li>
 					{# <li><a href="{{ path('admin.comments.overview') }}">Comments</a></li> #}
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#">Logout ({{ user.firstname }})</a></li>
-				</ul>
+					<li><a href="{{ path('admin.auth.logout') }}">Logout ({{ user.firstname }})</a></li>
+                </ul>
 			</div>
 
 			{# User is not logged in: only show "log in" button in nav #}

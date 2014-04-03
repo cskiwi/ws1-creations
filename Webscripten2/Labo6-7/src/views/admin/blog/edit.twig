@@ -8,13 +8,13 @@
 
 {# overwrite the pageContent block #}
 {% block pageContent %}
-    <form class="form-horizontal" method="post" action="#">
+    <form class="form-horizontal" method="post" action="#" {{ form_enctype(addBlogpostform) }} novalidate="novalidate">
         {{ form_widget(addBlogpostform._token) }}
 
         <!-- Form Name -->
         <legend>Edit Blog</legend>
 
-        <!-- Text input-->
+        <!-- Title input-->
         <div class="form-group">
             <label class="col-sm-2 control-label" for="title">Title</label>
 
@@ -37,7 +37,7 @@
             <label class="col-sm-2 control-label" for="content">Content</label>
             <div class="row" >
                 <div class="col-sm-4">
-                    <textarea id="addBlogpostform_content" name="addBlogpostform[content]" placeholder="" class="form-control" contenteditable="true" rows="10">{{ blog.content | raw }}</textarea>
+                    <textarea id="addBlogpostform_content" name="addBlogpostform[content]" placeholder="" class="form-control" rows="10">{{ blog.content | striptags }}</textarea>
                 </div>
 
                 <div class="col-sm-5">

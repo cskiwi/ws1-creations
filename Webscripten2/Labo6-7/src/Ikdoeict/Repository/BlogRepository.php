@@ -8,8 +8,8 @@ class BlogRepository extends \Knp\Repository {
 		return 'blogposts';
 	}
 
-	public function find($id) {
-		return $this->db->fetchAssoc('SELECT blogposts.*, authors.firstname, authors.lastname from blogposts INNER JOIN authors ON blogposts.author_id = authors.id WHERE blogposts.id = ?', array($id));
+	public function findBlogPost($id, $authorID){
+        return $this->db->fetchAssoc('SELECT blogposts.*, authors.firstname, authors.lastname from blogposts INNER JOIN authors ON blogposts.author_id = authors.id WHERE blogposts.id = ? AND blogposts.author_id = ?', array($id, $authorID));
 	}
 
 	public function findAll() {

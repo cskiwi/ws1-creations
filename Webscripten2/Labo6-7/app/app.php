@@ -16,4 +16,5 @@ $app->get('/', function(Silex\Application $app) {
 });
 
 // Mount our Controllers
+$app->mount('/auth', new Ikdoeict\Provider\Controller\AuthController());
 $app->mount('/admin/', new Ikdoeict\Provider\Controller\Admin());

@@ -77,47 +77,42 @@ class Blog implements ControllerProviderInterface {
         //     - Update data into DB if the form is valid
         //     + If the update succeeded: redirect to overview
         // + Render the template with the form
-        $blog = $app['db.blog']->find($blogpostId);
         $user = $app['session']->get('user');
+        $blog = $app['db.blog']->findBlogPost($blogpostId,$user['id']);
+
         if($blog) {
-            if ($blog['author_id'] == $user['id']){
-                $comments = $app['db.blog']->findComments($blogpostId);
+            $comments = $app['db.blog']->findComments($blogpostId);
 
-                $addBlogpostForm = $app['form.factory']->createNamed('addBlogpostform', 'form', $blog)
-                    ->add('title', 'text', array(
-                        'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5))),
-                        'label' => 'The Title'
-                    ))
-                    ->add('content', 'textarea', array(
-                        'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 20))),
-                        'label' => 'The Content'
-                    ));
+            $addBlogpostForm = $app['form.factory']->createNamed('addBlogpostform', 'form', $blog)
+                ->add('title', 'text', array(
+                    'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 5))),
+                    'label' => 'The Title'
+                ))
+                ->add('content', 'textarea', array(
+                    'constraints' => array(new Assert\NotBlank(), new Assert\Length(array('min' => 20))),
+                    'label' => 'The Content'
+                ));
 
 
-                if ($app['request']->getMethod() == 'POST'){
-                    $addBlogpostForm->bind($app['request']);
+            if ($app['request']->getMethod() == 'POST'){
+                $addBlogpostForm->bind($app['request']);
 
-                    if($addBlogpostForm->isValid()){
-                        $data = $addBlogpostForm->getData();
-                        // var_dump($data); var_dump($user);die();
+                if($addBlogpostForm->isValid()){
+                    $data = $addBlogpostForm->getData();
+                    // var_dump($data); var_dump($user);die();
 
-                        // inject extra fields needed for database
-                        $app['db.blog']->update(
-                            array(
-                                'title' => $data['title'],
-                                'content' => $data['content']
-                            )
-                            ,array(
-                                'id' => $data['id']
-                            ));
-                        return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
-                    }
+                    // inject extra fields needed for database
+                    $app['db.blog']->update(
+                        array(
+                            'title' => $data['title'],
+                            'content' => $data['content']
+                        )
+                        ,array(
+                            'id' => $data['id']
+                        ));
+                    return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
                 }
-            } else {
-                return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
             }
-
-
             return $app['twig']->render('admin/blog/edit.twig', array(
                 'user' => $user,
                 'addBlogpostform' => $addBlogpostForm->createView(),
@@ -134,11 +129,10 @@ class Blog implements ControllerProviderInterface {
         // + Fetch blogpost with given $blogPostId and logged in user Id
         // + Redirect to overview if it does not exist
         // + Delete the blogpost
-        $blog = $app['db.blog']->find($blogpostId);
+        $user = $app['session']->get('user');
+        $blog = $app['db.blog']->findBlogPost($blogpostId,$user['id']);
         if($blog){
-            if ($blog['author_id'] ==  $app['session']->get('user')['id']){
-                $app['db.blog']->delete(array('id' => $blog['id']));
-            }
+            $app['db.blog']->delete(array('id' => $blog['id']));
         }
         // Redirect to overview
         return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
@@ -191,13 +185,6 @@ class Blog implements ControllerProviderInterface {
     }
 
     public function checkLogin(\Symfony\Component\HttpFoundation\Request $request, Application $app) {
-
-        // @TODO: remove this little snippet once we've actually built in authentication
-        $app['session']->set('user', array(
-            'id' => 1,
-            'firstname' => 'Bramus'
-        ));
-
         if (!$app['session']->get('user')) {
             return $app->redirect($app['url_generator']->generate('admin.auth.login'));
         }
