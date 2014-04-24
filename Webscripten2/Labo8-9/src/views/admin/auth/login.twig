@@ -1,0 +1,30 @@
+{# extend the parent tpl #}
+{% extends 'admin/layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'MyFirstCMS &raquo; Login' %}
+
+
+{# overwrite the pageContent block #}
+{% block pageContent %}
+	<div class="col-xxs-10 col-xxs-offset-1 col-xs-8 col-xs-offset-2 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
+		<form role="form" action="{{ path('admin.auth.login') }}" method="post" {{ form_enctype(loginform) }} novalidate="novalidate">{# disable HTML5 formchecking #}
+            <div class="well clearfix">
+                <h2 class="form-signin-heading" style="margin-top: 0;">Login Required</h2>
+    			<div class="form-group">
+    				{{ form_label(loginform.email) }}
+    				{{ form_widget(loginform.email, { 'attr' : { 'class': 'form-control' }} ) }}
+    			</div>
+
+    			<div class="form-group">
+    				{{ form_label(loginform.password) }}
+    				{{ form_widget(loginform.password, { 'attr' : { 'class': 'form-control' }} ) }}
+    				<p class="text-danger">{{ form_errors(loginform.password)|striptags }}</p>
+    			</div>
+    			{{ form_widget(loginform._token) }}
+    			<button type="submit" name="submit" class="btn btn-lg btn-primary pull-right">Login </button>
+            </div>
+		</form>
+	</div>
+{% endblock %}

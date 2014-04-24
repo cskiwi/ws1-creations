@@ -1,0 +1,46 @@
+{# extend the parent tpl #}
+{% extends 'admin/layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Admin &raquo; Blog &raquo; Edit Blogpost' %}
+
+
+{# overwrite the js block #}
+{% block js %}
+<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+{% endblock %}
+
+
+{# overwrite the pageContent block #}
+{% block pageContent %}
+
+{% if not editform.vars.valid %}
+<div class="alert alert-danger">The form contains errors. Please fix these and try again</div>
+{% endif %}
+
+<form action="{{ path('admin.blog.edit', { 'blogpostId' : blogpost.id } ) }}" method="post" {{ form_enctype(editform) }} novalidate="novalidate" role="form">
+	<div class="form-group">
+		{{ form_label(editform.title) }}
+		{{ form_widget(editform.title, { 'attr' : { 'class': 'form-control hallo' }} ) }}
+		{% if not editform.title.vars.valid %}
+		{% for error in editform.title.vars.errors %}
+			<small>{{ error.message|trans|capitalize }}</small>
+		{% endfor %}
+		{% endif %}
+	</div>
+	<div class="form-group">
+		{{ form_label(editform.content) }}
+		{{ form_widget(editform.content, { 'attr' : { 'class': 'form-control', 'rows' : 10 }} ) }}
+		{% if not editform.content.vars.valid %}
+		{% for error in editform.content.vars.errors %}
+			<small>{{ error.message|trans|capitalize }}</small>
+		{% endfor %}
+		{% endif %}
+	</div>
+	{{ form_widget(editform._token) }}
+	<a href="{{ path('admin.blog.overview') }}">Cancel</a>
+	<input type="submit" class="btn btn-primary pull-right" value="Edit" />
+</form>
+{% endblock %}

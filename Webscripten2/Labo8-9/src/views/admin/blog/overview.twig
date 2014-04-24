@@ -1,0 +1,65 @@
+{# extend the parent tpl #}
+{% extends 'admin/layout.twig' %}
+
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Admin &raquo; Blog &raquo; Overview' %}
+
+
+{# overwrite the pageContent block #}
+{% block pageContent %}
+
+	{% if feedback in ['added','edited','deleted'] %}
+		<div class="alert alert-success alert-dismissable">
+  			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  			{% if feedback == 'added' %}
+				<i class="glyphicon glyphicon-ok"></i> The blogpost was successfully added
+			{% elseif feedback == 'edited' %}
+				<i class="glyphicon glyphicon-ok"></i> The blogpost was successfully edited
+			{% elseif feedback == 'deleted' %}
+				<i class="glyphicon glyphicon-ok"></i> The blogpost was successfully deleted
+			{% endif %}
+  		</div>
+	{% endif %}
+
+	<p class="text-right"><a href="{{ path('admin.blog.add') }}" class="btn btn-success btn-large"><i class="glyphicon glyphicon-plus"></i> Add new blogpost</a></p>
+
+	<table class="table">
+		<thead>
+		<tr>
+			<th>#</th>
+			<th>Title</th>
+			<th>Added on</th>
+			<th class="text-center">Comments</th>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		{% for blogpost in blogposts %}
+		<tr>
+			<td>{{ blogpost.id }}</td>
+			<td><a href="{{ path('admin.blog.edit', { 'blogpostId': blogpost.id}) }}">{{ blogpost.title }}</a></td>
+			<td>{{ blogpost.date|date('Y-m-d H:i:s') }}</td>
+			<td class="text-center">{{ blogpost.numcomments }}</td>
+			<td class="text-right">
+				<form action="{{ path('admin.blog.delete', { 'blogpostId': blogpost.id}) }}" method="post" class="delete">
+					<button type="submit" class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i> Delete</button>
+				</form>
+			</td>
+			<td class="text-right">
+				<a href="{{ path('admin.blog.edit', { 'blogpostId': blogpost.id }) }}" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+			</td>
+		</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+	<script>
+		jQuery(function($) {
+			$('form.delete').on('submit', function(e) {
+				return confirm('Sure you want to delete this blogpost?');
+			});
+		});
+	</script>
+{% endblock %}

@@ -1,0 +1,55 @@
+{# extend the parent tpl #}
+{% extends 'admin/layout.twig' %}
+
+{# set the pagetitle in the parent tpl #}
+{% set pageTitle = 'Admin &raquo; Blog &raquo; Add Blogpost' %}
+
+
+{# overwrite the js block #}
+{% block js %}
+<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+{% endblock %}
+
+
+{# overwrite the pageContent block #}
+{% block pageContent %}
+
+{% if not addform.vars.valid %}
+<div class="alert alert-danger">The form contains errors. Please fix these and try again</div>
+{% endif %}
+
+<form action="{{ path('admin.blog.add') }}" method="post" {{ form_enctype(addform) }} novalidate="novalidate" role="form">
+	<div class="form-group{% if not addform.title.vars.valid %}form-group has-error{% endif %}">
+		{{ form_label(addform.title) }}
+		{{ form_widget(addform.title) }}
+		{% if not addform.title.vars.valid %}
+		{% for error in addform.title.vars.errors %}
+			<small>{{ error.message|trans|capitalize }}</small>
+		{% endfor %}
+		{% endif %}
+	</div>
+	<div class="form-group {% if not addform.content.vars.valid %}form-group has-error{% endif %}">
+		{{ form_label(addform.content) }}
+		{{ form_widget(addform.content) }}
+		{% if not addform.content.vars.valid %}
+		{% for error in addform.content.vars.errors %}
+			<small>{{ error.message|trans|capitalize }}</small>
+		{% endfor %}
+		{% endif %}
+	</div>
+    <div class="form-group {% if not addform.images.vars.valid %}form-group has-error{% endif %}">
+        {{ form_label(addform.images) }}
+        {{ form_widget(addform.images, { 'full_name': addform.images.vars.full_name ~ '[]', 'attr' : { 'multiple': 'multiple' }} ) }}
+        {% if not addform.images.vars.valid %}
+            {% for error in addform.images.vars.errors %}
+                <small>{{ error.message|trans|capitalize }}</small>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+	{{ form_widget(addform._token) }}
+	<a href="{{ path('admin.blog.overview') }}">Cancel</a>
+	<input type="submit" class="btn btn-primary pull-right" value="Add" />
+</form>
+{% endblock %}
