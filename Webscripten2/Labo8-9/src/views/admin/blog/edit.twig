@@ -8,39 +8,62 @@
 
 {# overwrite the js block #}
 {% block js %}
-<script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
-<script>tinymce.init({selector:'textarea'});</script>
+    <script src="//tinymce.cachefly.net/4.0/tinymce.min.js"></script>
+    <script>tinymce.init({selector:'textarea'});</script>
 {% endblock %}
 
 
 {# overwrite the pageContent block #}
 {% block pageContent %}
 
-{% if not editform.vars.valid %}
-<div class="alert alert-danger">The form contains errors. Please fix these and try again</div>
-{% endif %}
+    {% if not editform.vars.valid %}
+        <div class="alert alert-danger">The form contains errors. Please fix these and try again</div>
+    {% endif %}
 
-<form action="{{ path('admin.blog.edit', { 'blogpostId' : blogpost.id } ) }}" method="post" {{ form_enctype(editform) }} novalidate="novalidate" role="form">
-	<div class="form-group">
-		{{ form_label(editform.title) }}
-		{{ form_widget(editform.title, { 'attr' : { 'class': 'form-control hallo' }} ) }}
-		{% if not editform.title.vars.valid %}
-		{% for error in editform.title.vars.errors %}
-			<small>{{ error.message|trans|capitalize }}</small>
-		{% endfor %}
-		{% endif %}
-	</div>
-	<div class="form-group">
-		{{ form_label(editform.content) }}
-		{{ form_widget(editform.content, { 'attr' : { 'class': 'form-control', 'rows' : 10 }} ) }}
-		{% if not editform.content.vars.valid %}
-		{% for error in editform.content.vars.errors %}
-			<small>{{ error.message|trans|capitalize }}</small>
-		{% endfor %}
-		{% endif %}
-	</div>
-	{{ form_widget(editform._token) }}
-	<a href="{{ path('admin.blog.overview') }}">Cancel</a>
-	<input type="submit" class="btn btn-primary pull-right" value="Edit" />
-</form>
+    <form action="{{ path('admin.blog.edit', { 'blogpostId' : blogpost.id } ) }}" method="post" {{ form_enctype(editform) }} novalidate="novalidate" role="form">
+        <div class="form-group">
+            {{ form_label(editform.title) }}
+            {{ form_widget(editform.title) }}
+            {% if not editform.title.vars.valid %}
+                {% for error in editform.title.vars.errors %}
+                    <small>{{ error.message|trans|capitalize }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form_label(editform.content) }}
+            {{ form_widget(editform.content) }}
+            {% if not editform.content.vars.valid %}
+                {% for error in editform.content.vars.errors %}
+                    <small>{{ error.message|trans|capitalize }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="form-group {% if not editform.images.vars.valid %}form-group has-error{% endif %}">
+            {{ form_label(editform.images) }}
+            {{ form_widget(editform.images, { 'full_name': editform.images.vars.full_name ~ '[]'} ) }}
+            {% if not editform.images.vars.valid %}
+                {% for error in editform.images.vars.errors %}
+                    <small>{{ error.message|trans|capitalize }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <div class="form-group col-md-12{% if not editform.delete.vars.valid %}form-group has-error{% endif %}">
+        {% for children in editform.delete.vars.form.children %}
+            <div class="row col-md-3">
+                <label for="{{ children.vars.id }}">
+                    <input type="checkbox" name="{{ children.vars.full_name }}" id="{{ children.vars.id }}" value="{{ children.vars.value }}"{% if children.vars.data %} checked="checked"{% endif %} />
+
+                    <img class="img-thumbnail" src="{{ app.request.baseUrl }}/{{ app['cms.base_url']}}/{{ blogpost.id}}/{{ children.vars.label|trans }}" alt="Image">
+                </label>
+            </div>
+        {% endfor %}
+        </div>
+
+        {{ form_widget(editform._token) }}
+        <a href="{{ path('admin.blog.overview') }}">Cancel</a>
+        <input type="submit" class="btn btn-primary pull-right" value="Edit" />
+    </form>
 {% endblock %}

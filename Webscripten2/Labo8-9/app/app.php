@@ -3,6 +3,10 @@
 // Bootstrap
 require __DIR__ . DIRECTORY_SEPARATOR . 'bootstrap.php';
 
+// Mount our Controllers
+$app->mount('/admin/', new Ikdoeict\Provider\Controller\Admin());
+
+// routing
 $app->error(function (\Exception $e, $code) {
 	if ($code == 404) {
 		return '404 - Not Found! // ' . $e->getMessage();
@@ -12,8 +16,7 @@ $app->error(function (\Exception $e, $code) {
 });
 
 $app->get('/', function(Silex\Application $app) {
-	return 'Visit /admin to get started';
+    return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
 });
 
-// Mount our Controllers
-$app->mount('/admin/', new Ikdoeict\Provider\Controller\Admin());
+
