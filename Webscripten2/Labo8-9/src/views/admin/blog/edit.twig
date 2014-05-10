@@ -51,6 +51,7 @@
         </div>
 
         <div class="form-group col-md-12{% if not editform.delete.vars.valid %}form-group has-error{% endif %}">
+            <p>Select the photo's you want to delete</p>
         {% for children in editform.delete.vars.form.children %}
             <div class="row col-md-3">
                 <label for="{{ children.vars.id }}">

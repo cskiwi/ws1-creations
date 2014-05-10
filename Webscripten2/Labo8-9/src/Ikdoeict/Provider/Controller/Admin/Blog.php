@@ -70,12 +70,11 @@ class Blog implements ControllerProviderInterface {
         if ($blogpost === false) {
             return $app->redirect($app['url_generator']->generate('admin.blog.overview'));
         }
-        $images = null;
-        $location = $app['cms.base_path'] . $blogpostId . DIRECTORY_SEPARATOR;
-        if (is_dir($location)) {
-            chdir($location);
-            $images = glob("*.jpg");
+        $images = @scandir('files/'. $blogpostId);
+        unset($images[0]); unset($images[1]);
 
+        if(empty($images)) {
+            $images = array(); // empty fix
         }
 
         // Build the form with the blogpost data as default values
@@ -104,8 +103,7 @@ class Blog implements ControllerProviderInterface {
             ->add('delete', 'choice', array(
                 'choices' => $images,
                 'multiple' => true,
-                'expanded' => true,
-                'required'  => false
+                'expanded' => true
             ));
 
         // Form was submitted: process it
@@ -128,7 +126,14 @@ class Blog implements ControllerProviderInterface {
                         $editform->get('images')->addError(new \Symfony\Component\Form\FormError('Only .jpg allowed'));
                     }
                 }
-                unset ($data['delete']);
+
+                if(!empty($data['delete'])) {
+                    foreach ($data['delete'] as $picture) {
+                        unlink('files/' . $blogpostId . '/' . $images[$picture]);
+                    }
+                }
+                unset($data['photo']);
+                unset($data['delete']);
 
                 // Update data in DB
                 $app['db.blog']->update($data, array('id' => $blogpostId));
@@ -211,7 +216,6 @@ class Blog implements ControllerProviderInterface {
 
                 $files = $app['request']->files->get($addform->getName());
                 unset ($data['images']);
-
                 $app['db.blog']->insert($data);
 
                 $id = $app['db.blog']->lastID();
@@ -223,7 +227,7 @@ class Blog implements ControllerProviderInterface {
                         // Move it to its new location
                         $image->move($app['cms.base_path'] . $id, time().'-'. $image->getClientOriginalName());
                     } else {
-                        $addform->get('image')->addError(new \Symfony\Component\Form\FormError('Only .jpg allowed'));
+                        $addform->get('images')->addError(new \Symfony\Component\Form\FormError('Only .jpg allowed'));
                     }
                 }
 
