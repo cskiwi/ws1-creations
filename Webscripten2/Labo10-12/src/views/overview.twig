@@ -36,7 +36,7 @@
 
         <div class="col-xs-10 col-xs-offset-1 col-sm-12 col-sm-offset-0 col-md-3">
             <div class="well clearfix">
-                <form action="{{ path('overview') }}" method="post"  novalidate="novalidate" role="form">
+                <form action="{{ path('overview') }}" method="post" novalidate="novalidate" role="form">
                     <fieldset>
                         <legend>Filter Collection</legend>
                         <div class="form-group">
@@ -73,45 +73,7 @@
                 {% endfor %}
             </div>
 
-            {% set prevPage = curPage - 1 %}
-            {% set nextPage = curPage + 1 %}
-
-            {% if numPages > 1 %}
-                <div class="text-center">
-                    <ul class="pagination pagination-sm">
-
-                        {% if curPage > 1 %}
-                            <li class="previousPage"><a href="{{ path('overview') }}?p={{ prevPage }}" data-p="{{ prevPage }}">< Previous</a></li>
-                        {% else %}
-                            <li class="previousPage disabled"><span>< Previous</span></li>
-                        {% endif %}
-
-                        {% for page in pagination %}
-                            <li {% if page == curPage %} class="active"{% endif %}{% if page == '...' %} class="disabled"{% endif %}>
-                                {% if page == curPage %}
-                                    <span>{{ page }}</span>
-                                {% elseif page == '...' %}
-                                    <span>…</span>
-                                {% else %}
-                                    <a href="{{ path('overview') }}?p={{ page }}" data-p="{{ page }}">{{ page }}</a>
-                                {% endif %}
-                            </li>
-                        {% endfor %}
-
-                        {% if curPage < numPages %}
-                            <li class="nextPage"><a href="{{ path('overview') }}?p={{ nextPage }}" data-p="{{ nextPage }}">Next ></a></li>
-                        {% else %}
-                            <li class="nextPage disabled"><span>Next ></span></li>
-                        {% endif %}
-
-                    </ul>
-
-                    <p class="text-muted">
-                        <em>{{ numItems }} items</em>
-                    </p>
-                </div>
-            {% endif %}
-
+            {{ pagination | raw }}
 
         </div>
 

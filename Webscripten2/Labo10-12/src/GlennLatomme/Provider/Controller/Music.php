@@ -16,6 +16,7 @@ class Music implements ControllerProviderInterface {
         // Login
         $controllers
             ->match('/', array($this, 'overview'))
+            ->before(array($this, 'forceFilter'))
             ->method('GET|POST')
             ->bind('overview');
 
@@ -28,14 +29,25 @@ class Music implements ControllerProviderInterface {
         //paginations
         $numItemsPerPage = 10;
         $curPage = max(1, (int) $request->query->get('p'));
-        $numItems = $app['db.music']->countAlbums();
+        $numItems = $app['db.music']->countAlbums( $this->getFilter($app) );
         $numPages = ceil($numItems / $numItemsPerPage);
-        $pagination = $this->generatePaginationSequence($curPage,$numPages);
+        $paginationSequence = $this->generatePaginationSequence($curPage,$numPages);
+
+        // var_dump($numItems); die();
 
         if ($curPage > $numPages){
+            $app['session']->set('filter_products', array(
+                'title' => '',
+                'genre' => '',
+                'year' => ''
+            ));
             return $app->redirect($app['url_generator']->generate('overview'));
         }
-        $music = $app['db.music']->findAll($curPage, $numItemsPerPage);
+
+        $music = $app['db.music']->findFiltered(
+            $this->getFilter($app), $curPage, $numItemsPerPage
+        );
+
 
         //Filter form
         $genres = $app['db.music']->getGenres();
@@ -56,15 +68,44 @@ class Music implements ControllerProviderInterface {
                     'class' => 'form-control',
                 ]
             ]);
-        //
+
+        if ('POST' == $app['request']->getMethod()) {
+            $filterForm->handleRequest($app['request']);
+            if ($filterForm->isValid()) {
+                $this->setFilter($app, $filterForm->getData());
+            }
+        }
+
+
         return $app['twig']->render('overview.twig', [
             'albums' => $music,
-            'pagination' => $pagination,
-            'curPage' => $curPage,
-            'numPages' => $numPages,
-            'numItems' => $numItems,
+            'pagination' => $app['twig']->render('pagination.twig', [
+                        'paginationSequence' => $paginationSequence,
+                        'curPage' => $curPage,
+                        'numPages' => $numPages,
+                        'numItems' => $numItems,
+                    ]
+                ),
             'filterForm' => $filterForm->createView()
         ]);
+    }
+
+    public function forceFilter(\Symfony\Component\HttpFoundation\Request $request, Application $app) {
+        if ($app['session']->get('filter_products') == null) {
+            $app['session']->set('filter_products', array(
+                'title' => '',
+                'genre' => '',
+                'year' => ''
+            ));
+        }
+    }
+
+    public function setFilter(Application $app, $filter) {
+        $app['session']->set('filter_products', $filter);
+    }
+
+    public function getFilter(Application $app) {
+        return $app['session']->get('filter_products');
     }
 
     function generatePaginationSequence($curPage, $numPages, $numberOfPagesAtEdges = 2, $numberOfPagesAroundCurrent = 2, $glue = '..', $indicateActive = false) {
