@@ -132,7 +132,7 @@ class Blog implements ControllerProviderInterface {
                         unlink('files/' . $blogpostId . '/' . $images[$picture]);
                     }
                 }
-                unset($data['photo']);
+
                 unset($data['delete']);
 
                 // Update data in DB
@@ -166,6 +166,15 @@ class Blog implements ControllerProviderInterface {
 
         // Delete the blogpost
         $app['db.blog']->delete(array('id' => $blogpostId));
+        $images = @scandir('files/'. $blogpostId);
+        unset($images[0]); unset($images[1]);
+
+        if(!empty($images)) {
+            foreach ($images as $image) {
+                unlink('files/' . $blogpostId . '/' . $image);
+            }
+            rmdir('files/' . $blogpostId);
+        }
 
         // Redirect to overview
         return $app->redirect($app['url_generator']->generate('admin.blog.overview') . '?feedback=deleted');

@@ -30,11 +30,21 @@ class Music implements ControllerProviderInterface {
         $numItemsPerPage = 10;
         $curPage = max(1, (int) $request->query->get('p'));
         $numItems = $app['db.music']->countAlbums( $this->getFilter($app) );
+
+        if ($numItems == 0){
+            $music = $app['db.music']->findAll(
+                $curPage, $numItemsPerPage
+            );
+            $numItems = count($music);
+        } else {
+            $music = $app['db.music']->findFiltered(
+                $this->getFilter($app), $curPage, $numItemsPerPage
+            );
+        }
+
+
         $numPages = ceil($numItems / $numItemsPerPage);
         $paginationSequence = $this->generatePaginationSequence($curPage,$numPages);
-
-        // var_dump($numItems); die();
-
         if ($curPage > $numPages){
             $app['session']->set('filter_products', array(
                 'title' => '',
@@ -44,21 +54,24 @@ class Music implements ControllerProviderInterface {
             return $app->redirect($app['url_generator']->generate('overview'));
         }
 
-        $music = $app['db.music']->findFiltered(
-            $this->getFilter($app), $curPage, $numItemsPerPage
-        );
-
 
         //Filter form
         $genres = $app['db.music']->getGenres();
-        $filterForm = $app['form.factory']->createNamed('filterForm')
+
+        $genreChoice[0] = 'All genres';
+
+        foreach ($genres as $genre){
+            $genreChoice [ $genre['id']] = $genre['title'] ;
+        }
+
+        $filterForm = $app['form.factory']->createNamed('filterForm', 'form', $this->getFilter($app))
             ->add('title', 'text', [
                 'attr' => [
                     'class' => 'form-control',
                 ]
             ])
             ->add('genre', 'choice', [
-                'choices' => $genres,
+                'choices' => $genreChoice,
                 'attr' => [
                     'class' => 'form-control',
                 ]
